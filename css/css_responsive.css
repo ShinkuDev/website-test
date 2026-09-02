@@ -1,0 +1,101 @@
+/* ==========================================================================
+   RESPONSIVE DESIGN (BREAKPOINTS)
+   ========================================================================== */
+
+/* 1. TABLET & IPAD (Max Width: 900px) */
+@media screen and (max-width: 900px) {
+  body {
+    padding: 12px;
+  }
+
+  .navbar {
+    padding: 12px 16px;
+  }
+
+  /* Ubah layout dari 2 kolom samping-sampingan jadi 1 kolom bertumpuk */
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .weather-body {
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  #map {
+    height: 300px;
+  }
+}
+
+/* 2. SMARTPHONE / MOBILE (Max Width: 600px) */
+@media screen and (max-width: 600px) {
+  /* Navbar Adjustment */
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .time-widget {
+    align-self: flex-start;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+
+  .logo-title h1 {
+    font-size: 0.95rem;
+  }
+
+  .logo-title span {
+    font-size: 0.68rem;
+  }
+
+  /* Hero Weather Adjustment */
+  .weather-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .weather-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .temp-display {
+    font-size: 3.5rem;
+  }
+
+  .weather-details {
+    width: 100%;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-card);
+    padding-top: 16px;
+  }
+
+  /* Map Container */
+  #map {
+    height: 250px;
+  }
+
+  /* Earthquake Card Adjustment */
+  .eq-body {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .eq-magnitude {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .eq-magnitude span {
+    font-size: 1.5rem;
+  }
+}

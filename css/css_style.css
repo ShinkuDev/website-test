@@ -1,0 +1,731 @@
+/* ==========================================================================
+   1. VARIABLES & RESET (CLEAN LIGHT MODE - BMKG)
+   ========================================================================== */
+:root {
+  --bg-main: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --border-card: #E2E8F0;
+  
+  --text-primary: #0F172A;
+  --text-secondary: #64748B;
+  
+  --accent-blue: #0284C7;
+  --accent-cyan: #0EA5E9;
+  --accent-green: #10B981;
+  --accent-amber: #F59E0B;
+  --accent-red: #EF4444;
+  
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-family);
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   2. DUAL-LAYER HEADER (LIGHT VERSION)
+   ========================================================================== */
+
+/* Baris Top Bar */
+.top-bar {
+  background: #F1F5F9;
+  border-bottom: 1px solid var(--border-card);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  padding: 8px 0;
+}
+
+.top-bar-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-info {
+  display: flex;
+  gap: 20px;
+}
+
+.top-info span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.social-links {
+  display: flex;
+  gap: 12px;
+}
+
+.social-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.2s;
+}
+
+.social-links a:hover {
+  color: var(--accent-blue);
+}
+
+.emergency-btn {
+  background: #FEF2F2;
+  color: var(--accent-red);
+  border: 1px solid #FECACA;
+  padding: 4px 12px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.75rem;
+  transition: all 0.3s;
+}
+
+.emergency-btn:hover {
+  background: var(--accent-red);
+  color: #fff;
+}
+
+/* Baris Main Navigation Header */
+.main-header {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-card);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.header-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-badge {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  border-radius: 10px;
+  letter-spacing: 1px;
+}
+
+.brand-text h2 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.brand-text span {
+  font-size: 0.68rem;
+  color: var(--accent-blue);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Navigasi */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-item, .dropdown-btn {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.nav-item:hover, .dropdown-btn:hover, .nav-item.active {
+  color: var(--accent-blue);
+  background: #F0F9FF;
+}
+
+.nav-item.active {
+  color: var(--accent-blue);
+}
+
+/* Dropdown */
+.nav-dropdown {
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  min-width: 200px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  padding: 8px 0;
+  z-index: 100;
+}
+
+.dropdown-content a {
+  color: var(--text-secondary);
+  padding: 10px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 0.82rem;
+  transition: background 0.2s;
+}
+
+.dropdown-content a:hover {
+  background: #F1F5F9;
+  color: var(--accent-blue);
+}
+
+.nav-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* CTA & Time Widget */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.time-widget {
+  background: #F1F5F9;
+  border: 1px solid var(--border-card);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--accent-blue);
+}
+
+.cta-button {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  color: #fff;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 12px rgba(14, 165, 233, 0.25);
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(14, 165, 233, 0.35);
+}
+
+/* ==========================================================================
+   3. LAYOUT & CARDS
+   ========================================================================== */
+.dashboard-grid {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 20px 20px;
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+
+.main-content, .sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Hero Weather Card */
+.hero-weather {
+  background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 100%);
+  border: 1px solid #BAE6FD;
+}
+
+.weather-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.weather-status-badge {
+  background: #E0F2FE;
+  color: var(--accent-blue);
+  border: 1px solid #93C5FD;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.temp-display {
+  font-size: 4.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.temp-display .unit {
+  font-size: 2.5rem;
+  color: var(--accent-blue);
+}
+
+.detail-item strong {
+  color: var(--text-primary);
+}
+
+/* Map Card */
+#map {
+  height: 350px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border-card);
+}
+
+/* Sidebar Cards */
+.earthquake-card {
+  border-left: 4px solid var(--accent-amber);
+}
+
+.eq-magnitude {
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  color: var(--accent-red);
+}
+
+.ispu-status {
+  background: #F8FAFC;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* FORM TIKET (tiket.html) LIGHT VERSION */
+.ticket-container {
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.ticket-form input, .ticket-form select {
+  background: #F8FAFC;
+  border: 1px solid var(--border-card);
+  color: var(--text-primary);
+}
+
+.ticket-form input:focus, .ticket-form select:focus {
+  background: #FFFFFF;
+  border-color: var(--accent-blue);
+}
+
+.ticket-pass {
+  background: linear-gradient(135deg, #F0F9FF, #FFFFFF);
+  border: 2px dashed var(--accent-blue);
+}
+
+/* ==========================================================================
+   4. HERO WEATHER CARD
+   ========================================================================== */
+.hero-weather {
+  background: linear-gradient(135deg, rgba(0, 141, 218, 0.15) 0%, rgba(18, 28, 45, 0.8) 100%);
+}
+
+.weather-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.weather-header h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.weather-header .subtitle {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+.weather-status-badge {
+  background: rgba(65, 201, 226, 0.15);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(65, 201, 226, 0.3);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.weather-body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.temp-display {
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.temp-display .unit {
+  font-size: 2.5rem;
+  color: var(--accent-cyan);
+}
+
+.weather-details {
+  display: flex;
+  gap: 24px;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detail-item span {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.detail-item strong {
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   5. MAP SECTION
+   ========================================================================== */
+.map-card {
+  padding: 20px;
+}
+
+#map {
+  height: 350px;
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border-card);
+  z-index: 1;
+}
+
+/* ==========================================================================
+   6. SIDEBAR CARDS (EARTHQUAKE & ISPU)
+   ========================================================================== */
+.earthquake-card {
+  border-left: 4px solid var(--accent-amber);
+}
+
+.alert-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert-header h3 {
+  margin-bottom: 0;
+}
+
+.live-dot {
+  width: 10px;
+  height: 10px;
+  background-color: var(--accent-red);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--accent-red);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.eq-body {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.eq-magnitude {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: var(--accent-red);
+  padding: 12px 16px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.eq-magnitude span {
+  font-size: 2rem;
+  font-weight: 700;
+  display: block;
+  line-height: 1;
+}
+
+.eq-magnitude small {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.eq-info p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.eq-info strong {
+  color: var(--text-primary);
+}
+
+.tsunami-badge {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  text-transform: uppercase;
+}
+
+.tsunami-badge.no-risk {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+}
+
+/* ISPU Status Indicator */
+.ispu-status {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+}
+
+.ispu-val {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.ispu-status.good .ispu-val,
+.ispu-status.good .ispu-label { color: var(--accent-green); }
+
+.ispu-status.moderate .ispu-val,
+.ispu-status.moderate .ispu-label { color: var(--accent-amber); }
+
+.ispu-status.unhealthy .ispu-val,
+.ispu-status.unhealthy .ispu-label { color: var(--accent-red); }
+
+.ispu-label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   SECTION LANDING TIKET ANTREAN PTSP
+   ========================================================================== */
+.ticket-landing-section {
+  max-width: 1280px;
+  margin: 40px auto 20px;
+  padding: 0 20px;
+}
+
+.ticket-container {
+  background: linear-gradient(135deg, rgba(18, 28, 45, 0.9) 0%, rgba(11, 18, 30, 0.95) 100%);
+  border: 1px solid rgba(65, 201, 226, 0.2);
+  border-radius: 24px;
+  padding: 40px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.badge-ptsp {
+  background: rgba(65, 201, 226, 0.12);
+  color: var(--accent-cyan);
+  border: 1px solid rgba(65, 201, 226, 0.3);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.section-header h2 {
+  font-size: 1.8rem;
+  margin: 12px 0 6px;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ticket-grid {
+  max-width: 550px;
+  margin: 0 auto;
+}
+
+/* Form Styling */
+.ticket-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.btn-submit-ticket {
+  width: 100%;
+  padding: 14px;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+/* Printable Ticket Styling */
+.ticket-pass {
+  background: linear-gradient(135deg, rgba(0, 141, 218, 0.25), rgba(18, 28, 45, 0.95));
+  border: 2px dashed var(--accent-cyan);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.ticket-pass-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.ticket-label {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.ticket-pass h1 {
+  font-size: 3.5rem;
+  color: var(--accent-cyan);
+  margin: 8px 0;
+  letter-spacing: 2px;
+}
+
+.ticket-pass h4 {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+}
+
+.ticket-user-name {
+  color: var(--accent-amber);
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+.ticket-instruction {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* Styling Ikon Gambar Media Sosial */
+.social-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-2px);
+  opacity: 0.8;
+}
+
+.social-icon {
+  width: 30px;       /* Sesuaikan ukuran lebar gambar */
+  height: 20px;      /* Sesuaikan ukuran tinggi gambar */
+  object-fit: contain;
+}

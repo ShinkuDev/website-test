@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal Informasi BMKG - Banjarbaru, Kalimantan Selatan</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <div class="top-info">
+        <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
+        <span>✉️ staklim.banjarbaru@bmkg.go.id</span>
+      </div>
+<div class="top-actions">
+  <div class="social-links">
+    <a href="#" title="Instagram">
+      <img src="https://uploads.onecompiler.io/4522rv3kr/4523fj8ma/images%20(1).jpeg" alt="Instagram" class="social-icon">
+    </a>
+    <a href="#" title="Twitter / X">
+      <img src="https://uploads.onecompiler.io/4522rv3kr/4523fj8ma/images.png" alt="Twitter" class="social-icon">
+    </a>
+    <a href="#" title="YouTube">
+      <img src="https://uploads.onecompiler.io/4522rv3kr/4523fj8ma/images%20(1).png" alt="YouTube" class="social-icon">
+    </a>
+  </div>
+  <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
+</div>
+        <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
+      </div>
+    </div>
+  </div>
+
+  <header class="main-header">
+    <div class="header-container">
+      
+      <div class="brand">
+        <div class="logo-badge">BMKG</div>
+        <div class="brand-text">
+          <h2>STASIUN KLIMATOLOGI</h2>
+          <span>BANJARBARU - KALIMANTAN SELATAN</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item active">Beranda</a>
+        <a href="#" class="nav-item">Prakiraan Cuaca</a>
+        <a href="#" class="nav-item">Gempa & Tsunami</a>
+        <a href="#" class="nav-item">Kualitas Udara</a>
+        <div class="nav-dropdown">
+          <button class="dropdown-btn">Layanan Publik ▾</button>
+          <div class="dropdown-content">
+            <a href="tiket.html" target="_blank">Permohonan Data Klima</a>
+            <a href="tiket.html" target="_blank">Kalibrasi Alat</a>
+            <a href="tiket.html" target="_blank">Magang & Penelitian</a>
+          </div>
+        </div>
+      </nav>
+
+      <div class="header-right">
+        <div class="time-widget">
+          <span id="realtime-clock">00:00:00 WITA</span>
+        </div>
+        <a href="tiket.html" target="_blank" class="cta-button" style="text-decoration: none;">
+          <span>🎫 Ambil Tiket Antrean</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="dashboard-grid">
+    
+    <section class="main-content">
+      
+      <div class="card hero-weather">
+        <div class="weather-header">
+          <div>
+            <h2 id="location-name">Banjarbaru, Kalimantan Selatan</h2>
+            <p class="subtitle">Prakiraan Cuaca Hari Ini</p>
+          </div>
+          <div class="weather-status-badge">Berawan</div>
+        </div>
+        
+        <div class="weather-body">
+          <div class="temp-display">
+            <span id="temperature">31</span><span class="unit">°C</span>
+          </div>
+          <div class="weather-details">
+            <div class="detail-item">
+              <span>Kelembapan</span>
+              <strong id="humidity">78%</strong>
+            </div>
+            <div class="detail-item">
+              <span>Kecepatan Angin</span>
+              <strong id="wind-speed">10 km/jam</strong>
+            </div>
+            <div class="detail-item">
+              <span>Arah Angin</span>
+              <strong id="wind-dir">Tenggara</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card map-card">
+        <h3>Peta Pantauan Wilayah & Radar</h3>
+        <div id="map"></div>
+      </div>
+
+    </section>
+
+    <aside class="sidebar">
+      
+      <div class="card earthquake-card">
+        <div class="card-header alert-header">
+          <span class="live-dot"></span>
+          <h3>Gempabumi Terkini</h3>
+        </div>
+        <div class="eq-body">
+          <div class="eq-magnitude">
+            <span id="eq-mag">5.2</span>
+            <small>SR</small>
+          </div>
+          <div class="eq-info">
+            <p><strong>Waktu:</strong> <span id="eq-time">02 Sep 2026, 21:45 WIB</span></p>
+            <p><strong>Lokasi:</strong> <span id="eq-loc">120 km BaratDaya KAB-PANGANDARAN-JABAR</span></p>
+            <p><strong>Kedalaman:</strong> <span id="eq-depth">10 Km</span></p>
+            <span class="tsunami-badge no-risk">Tidak Berpotensi Tsunami</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card ispu-card">
+        <h3>Kualitas Udara (ISPU)</h3>
+        <div class="ispu-status good">
+          <span class="ispu-val">38</span>
+          <span class="ispu-label">BAIK</span>
+        </div>
+      </div>
+
+    </aside>
+
+  </main>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
