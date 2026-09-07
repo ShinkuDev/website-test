@@ -1542,3 +1542,372 @@ html {
 .print-btn:hover {
   background: #E2E8F0;
 }
+
+/* ==========================================================================
+   HAMBURGER BUTTON & SIDEBAR DRAWER
+   ========================================================================== */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-right: 16px;
+}
+
+.hamburger-btn span {
+  width: 100%;
+  height: 3px;
+  background: var(--text-primary);
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Sidebar Drawer Slide-in */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -300px; /* Sembunyi di kiri */
+  width: 280px;
+  height: 100vh;
+  background: #FFFFFF;
+  z-index: 1000;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+  transition: left 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.active {
+  left: 0; /* Muncul dari kiri */
+}
+
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(2px);
+  z-index: 999;
+  display: none;
+}
+
+.sidebar-overlay.active {
+  display: block;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.close-sidebar-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--text-secondary);
+}
+
+.sidebar-body {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li {
+  margin-bottom: 8px;
+}
+
+.sidebar-links a {
+  display: block;
+  padding: 10px 14px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.sidebar-links a:hover {
+  background: #F1F5F9;
+  color: var(--accent-blue);
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: var(--border-card);
+  margin: 20px 0;
+}
+
+.admin-section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.admin-btn-link {
+  background: #EFF6FF !important;
+  color: var(--accent-blue) !important;
+  border: 1px solid #BFDBFE;
+}
+
+/* ==========================================================================
+   HALAMAN ADMIN CEK TIKET (admin.html)
+   ========================================================================== */
+.admin-page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.admin-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.admin-search-card {
+  padding: 28px;
+}
+
+.admin-search-form {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.admin-search-form input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.admin-search-form .check-btn {
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  border: none;
+  padding: 0 24px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.status-header.valid {
+  background: #DCFCE7;
+  color: #15803D;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  margin-bottom: 16px;
+}
+
+.admin-ticket-details {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #F8FAFC;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+}
+
+.detail-row span {
+  color: var(--text-secondary);
+}
+
+.highlight-code {
+  color: var(--accent-blue);
+  font-size: 1.2rem;
+}
+
+.admin-action-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.action-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.call-btn {
+  background: #FEF08A;
+  color: #854D0E;
+}
+
+.complete-btn {
+  background: #0284C7;
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   SIDEBAR & OVERLAY FIX
+   ========================================================================== */
+
+/* Overlay Latar Hitam */
+.sidebar-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(15, 23, 42, 0.5);
+  backdrop-filter: blur(2px);
+  z-index: 9998;
+  display: none;
+}
+
+.sidebar-overlay.active {
+  display: block !important;
+}
+
+/* Sidebar Box */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -320px; /* Sembunyi ke kiri luar layar */
+  width: 280px;
+  height: 100vh;
+  background: #FFFFFF;
+  z-index: 9999; /* Pastikan selalu berada di paling atas */
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.2);
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Saat Kelas 'active' Ditambahkan oleh JS, Sidebar Keluar */
+.sidebar.active {
+  left: 0 !important;
+}
+
+/* Tombol Garis 3 */
+.hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 32px;
+  height: 26px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  margin-right: 12px;
+  z-index: 10;
+}
+
+.hamburger-btn span {
+  width: 100%;
+  height: 3px;
+  background: #0284C7;
+  border-radius: 4px;
+}
+
+/* Header & Tombol Close di Dalam Sidebar */
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 20px;
+  border-bottom: 1px solid #E2E8F0;
+}
+
+.close-sidebar-btn {
+  background: #F1F5F9;
+  border: none;
+  font-size: 1.1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-body {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-links li {
+  margin-bottom: 6px;
+}
+
+.sidebar-links a {
+  display: block;
+  padding: 10px 14px;
+  color: #0F172A;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.sidebar-links a:hover {
+  background: #F0F9FF;
+  color: #0284C7;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background: #E2E8F0;
+  margin: 16px 0;
+}
+
+.admin-section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #94A3B8;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.admin-btn-link {
+  background: #EFF6FF !important;
+  color: #0284C7 !important;
+  border: 1px solid #BFDBFE;
+}
