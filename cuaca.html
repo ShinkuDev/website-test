@@ -124,5 +124,17 @@
     </div>
   </main>
 
+<!-- Tempatkan script ini tepat sebelum tag </body> -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+    }
+  </script>
 </body>
 </html>
