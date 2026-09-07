@@ -40,19 +40,17 @@
 
   <header class="main-header">
     <div class="header-container">
-<!-- Overlay Transparan Hitam Saat Sidebar Terbuka -->
+<!-- Hamburger Menu Overlay & Sidebar -->
 <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
 
-<!-- Drawer Sidebar -->
 <aside class="sidebar" id="sidebarMenu">
   <div class="sidebar-header">
     <div class="brand-text">
-      <h3 style="font-size: 1.1rem; margin: 0; color: #0F172A;">BMKG Banjarbaru</h3>
-      <span style="font-size: 0.75rem; color: #64748B;">Navigasi & Admin</span>
+      <h3 style="margin:0; font-size: 1.1rem; color: var(--text-primary);">BMKG Banjarbaru</h3>
+      <span style="font-size: 0.75rem; color: var(--text-secondary);">Navigasi & Admin</span>
     </div>
     <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
   </div>
-
   <div class="sidebar-body">
     <ul class="sidebar-links">
       <li><a href="index.html">🏠 Beranda</a></li>
@@ -61,12 +59,10 @@
       <li><a href="udara.html">🍃 Kualitas Udara</a></li>
       <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
     </ul>
-
     <div class="sidebar-divider"></div>
-
     <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
     <ul class="sidebar-links admin-links">
-      <li><a href="admin.html" class="admin-btn-link">🔍 Cek & Verifikasi Tiket</a></li>
+      <li><a href="admin.html" class="admin-btn-link">🔍 Dashboard Admin Antrean</a></li>
     </ul>
   </div>
 </aside>
@@ -74,8 +70,6 @@
 <!-- Header Navigasi -->
 <header class="main-header">
   <div class="header-container">
-    
-    <!-- Tombol Garis 3 (Klik untuk Buka) -->
     <button class="hamburger-btn" onclick="toggleSidebar()" type="button" aria-label="Buka Menu">
       <span></span>
       <span></span>
@@ -89,16 +83,13 @@
         <span>BANJARBARU - KALIMANTAN SELATAN</span>
       </div>
     </div>
-    
-    <!-- Menu Navbar Desktop -->
+
     <nav class="nav-menu">
       <a href="index.html" class="nav-item">Beranda</a>
       <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
       <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
       <a href="udara.html" class="nav-item">Kualitas Udara</a>
     </nav>
-  </div>
-</header>
 
     <div class="header-right">
       <a href="tiket.html" class="cta-button" style="text-decoration: none;">
