@@ -1911,3 +1911,156 @@ html {
   color: #0284C7 !important;
   border: 1px solid #BFDBFE;
 }
+
+/* ==========================================================================
+   ADMIN DASHBOARD & QUEUE CALL SYSTEM
+   ========================================================================== */
+.active-call-card {
+  text-align: center;
+  background: linear-gradient(135deg, #0284C7 0%, #0369A1 100%);
+  color: #FFFFFF;
+  padding: 32px 20px;
+  border-radius: 20px;
+  margin-bottom: 24px;
+}
+
+.call-status-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.active-ticket-number {
+  font-size: 4rem;
+  font-weight: 800;
+  color: #FDE047; /* Yellow */
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.active-ticket-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.active-ticket-service {
+  font-size: 0.88rem;
+  opacity: 0.85;
+  margin-bottom: 24px;
+}
+
+.call-controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.control-btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.control-btn:hover {
+  transform: translateY(-2px);
+  opacity: 0.95;
+}
+
+.btn-repeat {
+  background: #FFFFFF;
+  color: #0284C7;
+}
+
+.btn-next {
+  background: #22C55E;
+  color: #FFFFFF;
+}
+
+/* Tabel Antrean */
+.admin-table-card {
+  padding: 24px;
+}
+
+.table-header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.export-btn {
+  background: #F1F5F9;
+  border: 1px solid var(--border-card);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.export-btn:hover {
+  background: #E2E8F0;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+.queue-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.88rem;
+}
+
+.queue-table th,
+.queue-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.queue-table th {
+  background: #F8FAFC;
+  color: var(--text-secondary);
+  font-weight: 700;
+}
+
+.code-badge {
+  background: #E0F2FE;
+  color: #0284C7;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.action-mini-btn {
+  background: #0284C7;
+  color: #FFFFFF;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.action-mini-btn:hover {
+  opacity: 0.9;
+}
+
+.status-done-badge {
+  background: #DCFCE7;
+  color: #15803D;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
