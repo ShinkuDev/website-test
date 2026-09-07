@@ -15,170 +15,96 @@
 </head>
 <body>
 
+  <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-container">
       <div class="top-info">
         <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
         <span>✉️ staklim.banjarbaru@bmkg.go.id</span>
       </div>
-<div class="top-actions">
-  <div class="social-links">
-    <a href="#" title="Instagram">
-      <img src="assets/images (1).jpeg" alt="Instagram" class="social-icon">
-    </a>
-    <a href="#" title="Twitter / X">
-      <img src="assets/images.png" class="social-icon">
-    </a>
-    <a href="#" title="YouTube">
-      <img src="assets/images (1).png" alt="YouTube" class="social-icon">
-    </a>
-  </div>
+      <div class="top-actions">
+        <div class="social-links">
+          <a href="#" title="Instagram">
+            <img src="assets/images (1).jpeg" alt="Instagram" class="social-icon">
+          </a>
+          <a href="#" title="Twitter / X">
+            <img src="assets/images.png" alt="Twitter" class="social-icon">
+          </a>
+          <a href="#" title="YouTube">
+            <img src="assets/images (1).png" alt="YouTube" class="social-icon">
+          </a>
+        </div>
         <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
       </div>
     </div>
   </div>
 
+  <!-- Hamburger Menu Overlay & Sidebar Drawer -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar" id="sidebarMenu">
+    <div class="sidebar-header">
+      <div class="brand-text">
+        <h3 style="margin:0; font-size: 1.1rem; color: var(--text-primary);">BMKG Banjarbaru</h3>
+        <span style="font-size: 0.75rem; color: var(--text-secondary);">Navigasi & Admin</span>
+      </div>
+      <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+    </div>
+    <div class="sidebar-body">
+      <ul class="sidebar-links">
+        <li><a href="index.html">🏠 Beranda</a></li>
+        <li><a href="cuaca.html">🌤️ Prakiraan Cuaca</a></li>
+        <li><a href="gempa.html">🌋 Gempa & Tsunami</a></li>
+        <li><a href="udara.html">🍃 Kualitas Udara</a></li>
+        <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
+      </ul>
+      <div class="sidebar-divider"></div>
+      <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
+      <ul class="sidebar-links admin-links">
+        <li><a href="admin.html" class="admin-btn-link">🔍 Dashboard Admin Antrean</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Header Navigasi -->
   <header class="main-header">
     <div class="header-container">
-<!-- Hamburger Menu Overlay & Sidebar -->
-<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+      <button class="hamburger-btn" onclick="toggleSidebar()" type="button" aria-label="Buka Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
 
-<aside class="sidebar" id="sidebarMenu">
-  <div class="sidebar-header">
-    <div class="brand-text">
-      <h3 style="margin:0; font-size: 1.1rem; color: var(--text-primary);">BMKG Banjarbaru</h3>
-      <span style="font-size: 0.75rem; color: var(--text-secondary);">Navigasi & Admin</span>
-    </div>
-    <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
-  </div>
-  <div class="sidebar-body">
-    <ul class="sidebar-links">
-      <li><a href="index.html">🏠 Beranda</a></li>
-      <li><a href="cuaca.html">🌤️ Prakiraan Cuaca</a></li>
-      <li><a href="gempa.html">🌋 Gempa & Tsunami</a></li>
-      <li><a href="udara.html">🍃 Kualitas Udara</a></li>
-      <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
-    </ul>
-    <div class="sidebar-divider"></div>
-    <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
-    <ul class="sidebar-links admin-links">
-      <li><a href="admin.html" class="admin-btn-link">🔍 Dashboard Admin Antrean</a></li>
-    </ul>
-  </div>
-</aside>
+      <div class="brand">
+        <div class="logo-badge">BMKG</div>
+        <div class="brand-text">
+          <h2>STASIUN KLIMATOLOGI</h2>
+          <span>BANJARBARU - KALIMANTAN SELATAN</span>
+        </div>
+      </div>
 
-<!-- Header Navigasi -->
-<header class="main-header">
-  <div class="header-container">
-    <button class="hamburger-btn" onclick="toggleSidebar()" type="button" aria-label="Buka Menu">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item">Beranda</a>
+        <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+        <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
+        <a href="udara.html" class="nav-item">Kualitas Udara</a>
+      </nav>
 
-    <div class="brand">
-      <div class="logo-badge">BMKG</div>
-      <div class="brand-text">
-        <h2>STASIUN KLIMATOLOGI</h2>
-        <span>BANJARBARU - KALIMANTAN SELATAN</span>
+      <div class="header-right">
+        <a href="tiket.html" class="cta-button" style="text-decoration: none;">
+          <span>🎫 Ambil Tiket Antrean</span>
+        </a>
       </div>
     </div>
-
-    <nav class="nav-menu">
-      <a href="index.html" class="nav-item">Beranda</a>
-      <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
-      <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
-      <a href="udara.html" class="nav-item">Kualitas Udara</a>
-    </nav>
-
-    <div class="header-right">
-      <a href="tiket.html" class="cta-button" style="text-decoration: none;">
-        <span>🎫 Ambil Tiket Antrean</span>
-      </a>
-    </div>
-  </div>
-</header>
+  </header>
       
+  <!-- Main Content Grid -->
   <main class="dashboard-grid">
     
     <section class="main-content">
-      <!-- Kartu Prakiraan Cuaca Per Jam & Harian -->
-<div class="card forecast-card">
-  <div class="forecast-tabs">
-    <button class="tab-btn active" onclick="switchForecast('hourly')">Per 3 Jam</button>
-    <button class="tab-btn" onclick="switchForecast('daily')">5 Hari Kedepan</button>
-  </div>
-
-  <!-- Container Cuaca Per Jam -->
-  <div id="hourly-forecast" class="forecast-container active">
-    <div class="forecast-item">
-      <span class="time">14:00</span>
-      <span class="icon">🌧️</span>
-      <span class="temp">30°C</span>
-      <small>Hujan Ringan</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">17:00</span>
-      <span class="icon">⛅</span>
-      <span class="temp">28°C</span>
-      <small>Berawan</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">20:00</span>
-      <span class="icon">☁️</span>
-      <span class="temp">26°C</span>
-      <small>Berawan Tebal</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">23:00</span>
-      <span class="icon">🌙</span>
-      <span class="temp">25°C</span>
-      <small>Cerah Berawan</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">02:00</span>
-      <span class="icon">🌙</span>
-      <span class="temp">24°C</span>
-      <small>Cerah Berawan</small>
-    </div>
-  </div>
-
-  <!-- Container Cuaca Harian (Disembunyikan default) -->
-  <div id="daily-forecast" class="forecast-container" style="display: none;">
-    <div class="forecast-item">
-      <span class="time">Hari Ini</span>
-      <span class="icon">🌧️</span>
-      <span class="temp">31°C / 24°C</span>
-      <small>Hujan Ringan</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">Besok</span>
-      <span class="icon">⛅</span>
-      <span class="temp">32°C / 24°C</span>
-      <small>Cerah Berawan</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">Rabu</span>
-      <span class="icon">☀️</span>
-      <span class="temp">33°C / 25°C</span>
-      <small>Cerah</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">Kamis</span>
-      <span class="icon">🌩️</span>
-      <span class="temp">29°C / 23°C</span>
-      <small>Hujan Petir</small>
-    </div>
-    <div class="forecast-item">
-      <span class="time">Jumat</span>
-      <span class="icon">☁️</span>
-      <span class="temp">30°C / 24°C</span>
-      <small>Berawan</small>
-    </div>
-  </div>
-</div>
       
-      <div class="card hero-weather">
+      <!-- Kartu Cuaca Utama Saat Ini -->
+      <div id="prakiraan-cuaca" class="card hero-weather">
         <div class="weather-header">
           <div>
             <h2 id="location-name">Banjarbaru, Kalimantan Selatan</h2>
@@ -208,6 +134,83 @@
         </div>
       </div>
 
+      <!-- Kartu Prakiraan Cuaca Per Jam & Harian -->
+      <div class="card forecast-card">
+        <div class="forecast-tabs">
+          <button class="tab-btn active" onclick="switchForecast('hourly')">Per 3 Jam</button>
+          <button class="tab-btn" onclick="switchForecast('daily')">5 Hari Kedepan</button>
+        </div>
+
+        <!-- Container Cuaca Per Jam -->
+        <div id="hourly-forecast" class="forecast-container active">
+          <div class="forecast-item">
+            <span class="time">14:00</span>
+            <span class="icon">🌧️</span>
+            <span class="temp">30°C</span>
+            <small>Hujan Ringan</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">17:00</span>
+            <span class="icon">⛅</span>
+            <span class="temp">28°C</span>
+            <small>Berawan</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">20:00</span>
+            <span class="icon">☁️</span>
+            <span class="temp">26°C</span>
+            <small>Berawan Tebal</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">23:00</span>
+            <span class="icon">🌙</span>
+            <span class="temp">25°C</span>
+            <small>Cerah Berawan</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">02:00</span>
+            <span class="icon">🌙</span>
+            <span class="temp">24°C</span>
+            <small>Cerah Berawan</small>
+          </div>
+        </div>
+
+        <!-- Container Cuaca Harian -->
+        <div id="daily-forecast" class="forecast-container" style="display: none;">
+          <div class="forecast-item">
+            <span class="time">Hari Ini</span>
+            <span class="icon">🌧️</span>
+            <span class="temp">31°C / 24°C</span>
+            <small>Hujan Ringan</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">Besok</span>
+            <span class="icon">⛅</span>
+            <span class="temp">32°C / 24°C</span>
+            <small>Cerah Berawan</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">Rabu</span>
+            <span class="icon">☀️</span>
+            <span class="temp">33°C / 25°C</span>
+            <small>Cerah</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">Kamis</span>
+            <span class="icon">🌩️</span>
+            <span class="temp">29°C / 23°C</span>
+            <small>Hujan Petir</small>
+          </div>
+          <div class="forecast-item">
+            <span class="time">Jumat</span>
+            <span class="icon">☁️</span>
+            <span class="temp">30°C / 24°C</span>
+            <small>Berawan</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Peta radar -->
       <div class="card map-card">
         <h3>Peta Pantauan Wilayah & Radar</h3>
         <div id="map"></div>
@@ -215,7 +218,8 @@
 
     </section>
 
-    <aside class="sidebar">
+    <!-- Sidebar Kanan -->
+    <aside class="sidebar-right">
       
       <div class="card earthquake-card">
         <div class="card-header alert-header">
@@ -248,40 +252,10 @@
 
   </main>
 
-  <!-- Tambahkan id="prakiraan-cuaca" pada div ini -->
-<div id="prakiraan-cuaca" class="card hero-weather">
-  <div class="weather-header">
-    <div>
-      <h2 id="location-name">Banjarbaru, Kalimantan Selatan</h2>
-      <p class="subtitle">Prakiraan Cuaca Hari Ini</p>
-    </div>
-    <div class="weather-status-badge">Berawan</div>
-  </div>
-  
-  <div class="weather-body">
-    <div class="temp-display">
-      <span id="temperature">31</span><span class="unit">°C</span>
-    </div>
-    <div class="weather-details">
-      <div class="detail-item">
-        <span>Kelembapan</span>
-        <strong id="humidity">78%</strong>
-      </div>
-      <div class="detail-item">
-        <span>Kecepatan Angin</span>
-        <strong id="wind-speed">10 km/jam</strong>
-      </div>
-      <div class="detail-item">
-        <span>Arah Angin</span>
-        <strong id="wind-dir">Tenggara</strong>
-      </div>
-    </div>
-  </div>
-</div>
-
+  <!-- External & Internal JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/app.js"></script>
-  <!-- Tempatkan script ini tepat sebelum tag </body> -->
+  
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebarMenu');
@@ -290,6 +264,24 @@
       if (sidebar && overlay) {
         sidebar.classList.toggle('active');
         overlay.classList.toggle('active');
+      }
+    }
+
+    function switchForecast(type) {
+      const hourly = document.getElementById('hourly-forecast');
+      const daily = document.getElementById('daily-forecast');
+      const tabs = document.querySelectorAll('.tab-btn');
+
+      if (type === 'hourly') {
+        hourly.style.display = 'flex';
+        daily.style.display = 'none';
+        tabs[0].classList.add('active');
+        tabs[1].classList.remove('active');
+      } else {
+        hourly.style.display = 'none';
+        daily.style.display = 'flex';
+        tabs[0].classList.remove('active');
+        tabs[1].classList.add('active');
       }
     }
   </script>
