@@ -226,5 +226,54 @@
       }
     }
   </script>
+
+      <script>
+  function generateTicket(e) {
+    e.preventDefault();
+    
+    const nama = document.getElementById('nama').value;
+    const instansi = document.getElementById('instansi').value;
+    const layananSelect = document.getElementById('layanan');
+    const kodeLayanan = layananSelect.value;
+    const namaLayanan = layananSelect.options[layananSelect.selectedIndex].text;
+    const kontak = document.getElementById('kontak').value;
+    
+    // Ambil data tiket yang sudah ada di storage atau buat array baru
+    let existingTickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+
+    // Buat nomor tiket baru berurutan
+    const ticketIndex = existingTickets.length + 1;
+    const ticketCode = `${kodeLayanan}-${ticketIndex.toString().padStart(3, '0')}`;
+    
+    const today = new Date();
+    const tanggalStr = today.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+    const jamStr = today.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+    // Objek tiket baru
+    const newTicket = {
+      code: ticketCode,
+      nama: nama,
+      instansi: instansi,
+      layanan: namaLayanan,
+      kontak: kontak,
+      tanggal: tanggalStr,
+      jam: jamStr,
+      status: 'waiting' // Status awal: waiting (menunggu)
+    };
+
+    // Simpan ke localStorage
+    existingTickets.push(newTicket);
+    localStorage.setItem('bmkg_queue_tickets', JSON.stringify(existingTickets));
+
+    // Tampilkan di kartu tiket digital
+    document.getElementById('resCode').innerText = ticketCode;
+    document.getElementById('resNama').innerText = nama;
+    document.getElementById('resLayanan').innerText = namaLayanan;
+    document.getElementById('resTanggal').innerText = `${tanggalStr} (${jamStr} WITA)`;
+
+    document.getElementById('ticketResult').style.display = 'block';
+    document.getElementById('ticketResult').scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
 </body>
 </html>
