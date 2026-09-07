@@ -729,3 +729,816 @@ body {
   height: 20px;      /* Sesuaikan ukuran tinggi gambar */
   object-fit: contain;
 }
+
+/* ==========================================================================
+   FORECAST SECTION (PRAKIRAAN CUACA)
+   ========================================================================== */
+.forecast-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.forecast-tabs {
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 12px;
+}
+
+.tab-btn {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  color: var(--accent-blue);
+  background: #F1F5F9;
+}
+
+.tab-btn.active {
+  color: var(--accent-blue);
+  background: #E0F2FE;
+}
+
+.forecast-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+  gap: 12px;
+}
+
+.forecast-item {
+  background: #F8FAFC;
+  border: 1px solid var(--border-card);
+  border-radius: 12px;
+  padding: 12px 8px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.2s;
+}
+
+.forecast-item:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-blue);
+}
+
+.forecast-item .time {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+}
+
+.forecast-item .icon {
+  font-size: 1.8rem;
+  margin: 2px 0;
+}
+
+.forecast-item .temp {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.forecast-item small {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* Supaya judul tidak tertutup header sticky */
+}
+
+/* ==========================================================================
+   HALAMAN KHUSUS PRAKIRAAN CUACA (cuaca.html)
+   ========================================================================== */
+.cuaca-page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.cuaca-hero-section {
+  text-align: center;
+  padding: 40px 20px;
+  background: linear-gradient(180deg, #F0F9FF 0%, #F8FAFC 100%);
+  border-radius: 24px;
+  margin-bottom: 32px;
+}
+
+.breadcrumb {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.breadcrumb a {
+  color: var(--text-secondary);
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  color: var(--accent-blue);
+}
+
+.breadcrumb span {
+  margin: 0 6px;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.page-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin-bottom: 30px;
+}
+
+/* Form Search Bar Modern */
+.search-box-wrapper {
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.search-input-group {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid var(--border-card);
+  border-radius: 16px;
+  padding: 8px 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s;
+}
+
+.search-input-group:focus-within {
+  border-color: var(--accent-blue);
+}
+
+.search-icon {
+  font-size: 1.1rem;
+  margin-right: 12px;
+}
+
+.search-input-group input {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: var(--text-primary);
+  background: transparent;
+}
+
+/* Grid Kartu Wilayah */
+.weather-region-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.region-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.region-info h3 {
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+  text-transform: none;
+}
+
+.region-info p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.region-weather {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px 0 8px;
+}
+
+.weather-icon {
+  font-size: 2.2rem;
+}
+
+.region-temp {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-blue);
+}
+
+.weather-desc {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   HALAMAN KHUSUS GEMPA BUMI & TSUNAMI (gempa.html)
+   ========================================================================== */
+.gempa-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+}
+
+@media (max-width: 900px) {
+  .gempa-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gempa-main-card {
+  border-left: 6px solid var(--accent-red);
+}
+
+.gempa-header-tag {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.badge-danger {
+  background: #FEF2F2;
+  color: var(--accent-red);
+  border: 1px solid #FECACA;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.tsunami-status {
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.tsunami-status.no-tsunami {
+  background: #F0FDF4;
+  color: var(--accent-green);
+  border: 1px solid #BBF7D0;
+}
+
+.gempa-details-wrapper {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .gempa-details-wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+.gempa-mag-box {
+  background: linear-gradient(135deg, #EF4444, #B91C1C);
+  color: #FFFFFF;
+  padding: 24px 32px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 140px;
+  box-shadow: 0 8px 20px rgba(239, 68, 68, 0.25);
+}
+
+.gempa-mag-box .mag-num {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.gempa-mag-box small {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  margin-top: 6px;
+  letter-spacing: 1px;
+}
+
+.gempa-info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-card);
+  padding-bottom: 8px;
+  font-size: 0.9rem;
+}
+
+.info-row .label {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.info-row .val {
+  color: var(--text-primary);
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Sidebar Gempa Dirasakan */
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+
+.gempa-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gempa-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px;
+}
+
+.item-mag {
+  background: #F1F5F9;
+  color: var(--text-primary);
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  min-width: 60px;
+  text-align: center;
+}
+
+.item-desc strong {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.item-desc small {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   HALAMAN KUALITAS UDARA (udara.html)
+   ========================================================================== */
+.ispu-page-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.ispu-hero {
+  text-align: center;
+  padding: 30px 20px;
+  background: linear-gradient(180deg, #F0F9FF 0%, #F8FAFC 100%);
+  border-radius: 20px;
+  margin: 16px 0 24px;
+}
+
+.ispu-tag {
+  background: #E0F2FE;
+  color: var(--accent-blue);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  letter-spacing: 0.5px;
+}
+
+.ispu-hero h1 {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin: 10px 0 6px;
+}
+
+.ispu-hero p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.ispu-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+}
+
+/* Card Main ISPU */
+.ispu-main-card {
+  padding: 28px;
+}
+
+.ispu-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-card);
+}
+
+.ispu-header-row h2 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+}
+
+.ispu-header-row small {
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+}
+
+.ispu-status-pill {
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  border-radius: 20px;
+}
+
+.status-good {
+  background: #DCFCE7;
+  color: #15803D;
+  border: 1px solid #BBF7D0;
+}
+
+.ispu-score-container {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-bottom: 32px;
+}
+
+.score-circle {
+  min-width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.good-bg {
+  background: linear-gradient(135deg, #10B981, #059669);
+  color: #FFFFFF;
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+}
+
+.score-num {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.score-unit {
+  font-size: 0.7rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+.score-info h3 {
+  font-size: 1.2rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  text-transform: none;
+}
+
+.score-info p {
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+/* Scale Legend */
+.ispu-scale h4 {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.scale-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  text-align: center;
+}
+
+.scale-item {
+  padding: 10px 6px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  opacity: 0.5;
+}
+
+.active-scale {
+  opacity: 1 !important;
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.item-good { background: #DCFCE7; color: #15803D; }
+.item-moderate { background: #FEF9C3; color: #A16207; }
+.item-unhealthy { background: #FFEDD5; color: #C2410C; }
+.item-very-unhealthy { background: #FEE2E2; color: #B91C1C; }
+.item-hazardous { background: #F3E8FF; color: #6B21A8; }
+
+/* Parameter Card */
+.param-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.param-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  background: #F8FAFC;
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+}
+
+.param-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.param-name small {
+  display: block;
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.param-val {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge-mini {
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.badge-mini.good {
+  background: #DCFCE7;
+  color: #15803D;
+}
+
+/* ==========================================================================
+   HALAMAN TIKET ANTREAN (tiket.html)
+   ========================================================================== */
+.ticket-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Banner Status Realtime Antrean */
+.queue-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background: linear-gradient(135deg, #0284C7, #0369A1);
+  color: #FFFFFF;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 16px 0 28px;
+  box-shadow: 0 10px 20px rgba(2, 132, 199, 0.2);
+}
+
+.queue-status-box {
+  text-align: center;
+}
+
+.queue-status-box small {
+  display: block;
+  font-size: 0.82rem;
+  opacity: 0.9;
+  margin-bottom: 4px;
+}
+
+.queue-number {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.queue-number.current {
+  color: #FDE047; /* Yellow Accent */
+}
+
+.queue-status-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Grid Layout Tiket */
+.ticket-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+@media (max-width: 850px) {
+  .ticket-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Form Card */
+.ticket-form-card {
+  padding: 28px;
+}
+
+.ticket-form-card h2 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.ticket-form-card .subtitle {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-card);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  background: #F8FAFC;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--accent-blue);
+  background: #FFFFFF;
+}
+
+.submit-ticket-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent-blue);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.submit-ticket-btn:hover {
+  opacity: 0.9;
+}
+
+/* Tiket Result Card (Tampilan Kupon Tiket Digital) */
+.ticket-result-card {
+  background: #FFFFFF;
+  border: 2px dashed var(--accent-blue);
+  border-radius: 20px;
+  padding: 24px;
+  text-align: center;
+}
+
+.ticket-header h3 {
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+
+.ticket-header p {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+}
+
+.ticket-body {
+  background: #F0F9FF;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.ticket-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.ticket-code {
+  font-size: 3.2rem;
+  font-weight: 800;
+  color: var(--accent-blue);
+  line-height: 1.1;
+  margin: 6px 0 16px;
+}
+
+.ticket-info-list {
+  text-align: left;
+  border-top: 1px solid #BAE6FD;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.info-row span {
+  color: var(--text-secondary);
+}
+
+.info-row strong {
+  color: var(--text-primary);
+}
+
+.ticket-footer p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.print-btn {
+  background: #F1F5F9;
+  color: var(--text-primary);
+  border: 1px solid var(--border-card);
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.print-btn:hover {
+  background: #E2E8F0;
+}
