@@ -97,12 +97,12 @@
     <div class="queue-status-banner">
       <div class="queue-status-box">
         <small>Nomor Antrean Dipanggil</small>
-        <span class="queue-number current" id="currentQueue">A-012</span>
+        <span class="queue-number current" id="currentQueue">---</span>
       </div>
       <div class="queue-status-divider"></div>
       <div class="queue-status-box">
         <small>Sisa Antrean Menunggu</small>
-        <span class="queue-number" id="waitingQueue">4 Orang</span>
+        <span class="queue-number" id="waitingQueue">0 Orang</span>
       </div>
     </div>
 
@@ -181,7 +181,7 @@
     </div>
   </main>
 
-  <!-- Script gabungan (SideNav + Ticket Generator + LocalStorage) -->
+  <!-- Script gabungan (SideNav + Ticket Generator + Realtime Sync with Admin) -->
   <script>
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebarMenu');
@@ -190,6 +190,24 @@
       if (sidebar && overlay) {
         sidebar.classList.toggle('active');
         overlay.classList.toggle('active');
+      }
+    }
+
+    // Memperbarui Banner Status secara Realtime dari LocalStorage
+    function updateQueueBanner() {
+      const existingTickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+      
+      const callingTicket = existingTickets.find(t => t.status === 'calling');
+      const waitingCount = existingTickets.filter(t => t.status === 'waiting').length;
+
+      const currentEl = document.getElementById('currentQueue');
+      const waitingEl = document.getElementById('waitingQueue');
+
+      if (currentEl) {
+        currentEl.innerText = callingTicket ? callingTicket.code : '---';
+      }
+      if (waitingEl) {
+        waitingEl.innerText = `${waitingCount} Orang`;
       }
     }
 
@@ -233,7 +251,14 @@
 
       document.getElementById('ticketResult').style.display = 'block';
       document.getElementById('ticketResult').scrollIntoView({ behavior: 'smooth' });
+
+      // Perbarui angka di banner secara instant
+      updateQueueBanner();
     }
+
+    // Jalankan pembaruan data saat halaman dimuat & sync otomatis jika admin mengubah status antrean
+    window.addEventListener('DOMContentLoaded', updateQueueBanner);
+    window.addEventListener('storage', updateQueueBanner);
   </script>
 </body>
 </html>
