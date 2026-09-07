@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Layar Display Antrean Realtime - BMKG Banjarbaru</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+
+  <style>
+    :root {
+      --bg-display: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --accent-yellow: #facc15;
+      --accent-blue: #38bdf8;
+    }
+
+    body {
+      background-color: var(--bg-display);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header Display Top Bar */
+    .display-header {
+      background: #0284c7;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    }
+
+    .display-brand {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .display-brand h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .display-brand p {
+      margin: 0;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .clock-box {
+      text-align: right;
+    }
+
+    .clock-time {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1;
+    }
+
+    .clock-date {
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+
+    /* Main Content Layout */
+    .display-container {
+      padding: 2rem;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    /* Main Call Card */
+    .main-call-card {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      border: 3px solid #0284c7;
+      border-radius: 20px;
+      padding: 3rem 2rem;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main-call-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, #38bdf8, #facc15, #38bdf8);
+    }
+
+    .call-label {
+      font-size: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-blue);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .call-number {
+      font-size: 7rem;
+      font-weight: 800;
+      color: var(--accent-yellow);
+      line-height: 1;
+      margin: 0.5rem 0;
+      text-shadow: 0 0 20px rgba(250, 204, 21, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .call-details {
+      font-size: 1.8rem;
+      color: #e2e8f0;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+
+    .call-subdetail {
+      font-size: 1.2rem;
+      color: #94a3b8;
+      margin-top: 0.5rem;
+    }
+
+    /* History Section */
+    .history-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      border: 1px solid #334155;
+    }
+
+    .history-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .history-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+
+    .history-item {
+      background: #0f172a;
+      border: 1px solid #334155;
+      border-left: 4px solid #38bdf8;
+      padding: 1rem;
+      border-radius: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .history-code {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-yellow);
+    }
+
+    .history-info {
+      text-align: right;
+    }
+
+    .history-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #f1f5f9;
+    }
+
+    .history-service {
+      font-size: 0.8rem;
+      color: #64748b;
+    }
+
+    /* Audio Enable Overlay Banner */
+    .audio-notice {
+      background: #eab308;
+      color: #000;
+      text-align: center;
+      padding: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Notice aktifkan suara (karena browser memblokir auto-speech tanpa interaksi) -->
+  <div class="audio-notice" id="audioNotice" onclick="enableAudio()">
+    🔔 Klik di mana saja pada layar ini untuk mengaktifkan Suara Panggilan Antrean Otomatis
+  </div>
+
+  <!-- Header Layar Display -->
+  <header class="display-header">
+    <div class="display-brand">
+      <div class="logo-badge" style="background: white; color: #0284c7; font-weight: bold; padding: 6px 12px; border-radius: 6px;">BMKG</div>
+      <div>
+        <h1>STASIUN KLIMATOLOGI BANJARBARU</h1>
+        <p>Layar Informasi Antrean Pelayanan Publik</p>
+      </div>
+    </div>
+    <div class="clock-box">
+      <div class="clock-time" id="clockTime">00:00:00</div>
+      <div class="clock-date" id="clockDate">Senin, 1 Januari 2026</div>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main class="display-container">
+    
+    <!-- Panggilan Utama -->
+    <div class="main-call-card">
+      <div class="call-label">📢 ANTREAN DIPANGGIL SAAT INI</div>
+      <div class="call-number" id="displayCurrentCode">---</div>
+      <div class="call-details" id="displayCurrentNama">Menunggu Panggilan...</div>
+      <div class="call-subdetail" id="displayCurrentLayanan">-</div>
+    </div>
+
+    <!-- Riwayat Panggilan Terakhir -->
+    <div class="history-section">
+      <div class="history-title">🕒 RIWAYAT PANGGILAN TERAKHIR</div>
+      <div class="history-grid" id="historyGrid">
+        <!-- Dipopulasi otomatis lewat JS -->
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    let audioAllowed = false;
+    let lastCalledCode = '';
+
+    function enableAudio() {
+      audioAllowed = true;
+      document.getElementById('audioNotice').style.display = 'none';
+      // Tes pemicu audio silent
+      const speech = new SpeechSynthesisUtterance('');
+      window.speechSynthesis.speak(speech);
+    }
+
+    // Jam Digital
+    function updateClock() {
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const dateStr = now.toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+      
+      document.getElementById('clockTime').innerText = timeStr;
+      document.getElementById('clockDate').innerText = dateStr;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // Fungsi Suara Panggilan (Text-To-Speech Bahasa Indonesia)
+    function speakCall(code, nama) {
+      if (!audioAllowed || !('speechSynthesis' in window)) return;
+
+      window.speechSynthesis.cancel(); // Hentikan suara sebelumnya jika ada
+
+      // Format ejaan kode antrean (misal: "A - 0 0 1") agar dibaca per angka
+      const formattedCode = code.replace('-', ', nomor antrean ');
+      const text = `Nomor antrean ${formattedCode}, atas nama ${nama}, silakan menuju ke loket pelayanan.`;
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'id-ID';
+      utterance.rate = 0.85; // Kecepatan bicara
+      utterance.pitch = 1;
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    // Fungsi Utama Sinkronisasi Data Display
+    function syncDisplayData() {
+      const tickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+      
+      const callingTicket = tickets.find(t => t.status === 'calling');
+      const historyTickets = tickets.filter(t => t.status === 'done').slice(-4).reverse(); // Ambil 4 riwayat terakhir
+
+      const codeEl = document.getElementById('displayCurrentCode');
+      const namaEl = document.getElementById('displayCurrentNama');
+      const layananEl = document.getElementById('displayCurrentLayanan');
+
+      if (callingTicket) {
+        codeEl.innerText = callingTicket.code;
+        namaEl.innerText = callingTicket.nama;
+        layananEl.innerText = `${callingTicket.instansi} • ${callingTicket.layanan}`;
+
+        // Bunyikan suara jika ada pendaftaran/panggilan baru
+        if (callingTicket.code !== lastCalledCode) {
+          lastCalledCode = callingTicket.code;
+          speakCall(callingTicket.code, callingTicket.nama);
+        }
+      } else {
+        codeEl.innerText = '---';
+        namaEl.innerText = 'Menunggu Panggilan...';
+        layananEl.innerText = '-';
+        lastCalledCode = '';
+      }
+
+      // Render Riwayat
+      const historyContainer = document.getElementById('historyGrid');
+      if (historyTickets.length === 0) {
+        historyContainer.innerHTML = `<div style="color: #64748b; font-size: 0.95rem;">Belum ada riwayat antrean dipanggil.</div>`;
+      } else {
+        historyContainer.innerHTML = historyTickets.map(t => `
+          <div class="history-item">
+            <div class="history-code">${t.code}</div>
+            <div class="history-info">
+              <div class="history-name">${t.nama}</div>
+              <div class="history-service">${t.layanan}</div>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    // Listen Perubahan dari Admin & Auto Refresh setiap 2 detik
+    window.addEventListener('DOMContentLoaded', syncDisplayData);
+    window.addEventListener('storage', syncDisplayData);
+    setInterval(syncDisplayData, 2000);
+  </script>
+</body>
+</html>
