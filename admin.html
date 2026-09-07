@@ -76,23 +76,29 @@
     <!-- Panel Panggilan Utama -->
     <div class="card active-call-card">
       <div class="call-status-label">ANTREAN DIPANGGIL SAAT INI</div>
-      <div class="active-ticket-number" id="activeTicketCode">A-012</div>
-      <div class="active-ticket-name" id="activeTicketName">Ahmad Rian - ULM Banjarbaru</div>
-      <div class="active-ticket-service" id="activeTicketService">Permohonan Data Klimatologi</div>
+      <div class="active-ticket-number" id="activeTicketCode">---</div>
+      <div class="active-ticket-name" id="activeTicketName">Belum ada tiket dipanggil</div>
+      <div class="active-ticket-service" id="activeTicketService">-</div>
 
       <div class="call-controls">
         <button onclick="repeatVoiceCall()" class="control-btn btn-repeat">
           🔊 Panggil Ulang (Suara)
         </button>
-        <button onclick="nextTicket()" class="control-btn btn-next">
-          ⏭️ Lanjut Tiket Berikutnya
+        <button onclick="markAsCompleted()" class="control-btn btn-done" style="background: #22C55E; color: #fff;">
+          ✔ Selesai Dilayani
+        </button>
+        <button onclick="callNextInQueue()" class="control-btn btn-next" style="background: #EAB308; color: #fff;">
+          ⏭️ Panggil Berikutnya
         </button>
       </div>
     </div>
 
     <!-- Tabel Daftar Antrean Menunggu -->
     <div class="card admin-table-card">
-      <h3>📋 Daftar Antrean Menunggu Hari Ini</h3>
+      <div class="table-header-flex">
+        <h3>📋 Daftar Antrean Menunggu</h3>
+        <button onclick="clearAllData()" class="export-btn" style="color: #EF4444;">🗑️ Reset Semua Data</button>
+      </div>
       <div class="table-responsive">
         <table class="queue-table">
           <thead>
@@ -101,27 +107,27 @@
               <th>Nama Pemohon</th>
               <th>Instansi</th>
               <th>Jenis Layanan</th>
+              <th>Waktu Daftar</th>
               <th>Aksi</th>
             </tr>
           </thead>
           <tbody id="waitingQueueTableBody">
-            <!-- Data Antrean Otomatis Muncul di Sini -->
+            <!-- Data Antrean Menunggu -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Tabel Riwayat Panggilan (Untuk Pendataan Bulanan) -->
+    <!-- Tabel Riwayat Panggilan (Selesai) -->
     <div class="card admin-table-card" style="margin-top: 24px;">
       <div class="table-header-flex">
-        <h3>📊 Riwayat Panggilan & Selesai (Pendataan Bulanan)</h3>
-        <button onclick="exportHistory()" class="export-btn">📥 Export Riwayat (.CSV)</button>
+        <h3>📊 Riwayat Antrean Selesai (Pendataan Bulanan)</h3>
+        <button onclick="exportHistory()" class="export-btn">📥 Export CSV</button>
       </div>
       <div class="table-responsive">
         <table class="queue-table history-table">
           <thead>
             <tr>
-              <th>Waktu Dipanggil</th>
               <th>No. Tiket</th>
               <th>Nama Pemohon</th>
               <th>Instansi</th>
@@ -130,7 +136,7 @@
             </tr>
           </thead>
           <tbody id="historyQueueTableBody">
-            <!-- Data Riwayat Muncul di Sini -->
+            <!-- Data Riwayat Selesai -->
           </tbody>
         </table>
       </div>
@@ -143,159 +149,188 @@
       document.getElementById('sidebarOverlay').classList.toggle('active');
     }
 
-    // Data Antrean Sementara (Model Realtime)
-    let waitingQueue = [
-      { code: "A-012", nama: "Ahmad Rian", instansi: "ULM Banjarbaru", layanan: "Permohonan Data Klimatologi" },
-      { code: "A-013", nama: "Siti Rahmah", instansi: "PT. Borneo Agro", layanan: "Permohonan Data Klimatologi" },
-      { code: "B-004", nama: "M. Rajendra", instansi: "SMAN 1 Banjarbaru", layanan: "Kalibrasi Alat Meteorologi" },
-      { code: "C-002", nama: "Budi Santoso", instansi: "Dinas Pertanian", layanan: "Pengajuan Magang / Penelitian" }
-    ];
+    let activeTicket = null;
 
-    let historyQueue = [];
-    let currentTicket = null;
-
-    // Render Tabel Antrean Menunggu
-    function renderQueueTable() {
-      const tbody = document.getElementById('waitingQueueTableBody');
-      tbody.innerHTML = "";
-
-      if (waitingQueue.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94A3B8;">Tidak ada antrean menunggu saat ini.</td></tr>`;
-        return;
-      }
-
-      waitingQueue.forEach((item, index) => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td><strong class="code-badge">${item.code}</strong></td>
-          <td>${item.nama}</td>
-          <td>${item.instansi}</td>
-          <td>${item.layanan}</td>
-          <td>
-            <button onclick="callSpecificTicket(${index})" class="action-mini-btn">📢 Panggil</button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
+    // Ambil Data dari LocalStorage
+    function getTicketsFromStorage() {
+      return JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
     }
 
-    // Fitur Suara Panggil Antrean (Text-To-Speech)
+    // Simpan Kembali Data ke LocalStorage
+    function saveTicketsToStorage(tickets) {
+      localStorage.setItem('bmkg_queue_tickets', JSON.stringify(tickets));
+    }
+
+    // Refresh Semua Tampilan Tabel
+    function refreshTables() {
+      const tickets = getTicketsFromStorage();
+      const waitingTbody = document.getElementById('waitingQueueTableBody');
+      const historyTbody = document.getElementById('historyQueueTableBody');
+
+      waitingTbody.innerHTML = "";
+      historyTbody.innerHTML = "";
+
+      const waitingTickets = tickets.filter(t => t.status === 'waiting' || t.status === 'calling');
+      const completedTickets = tickets.filter(t => t.status === 'completed');
+
+      // 1. Render Tabel Menunggu
+      if (waitingTickets.length === 0) {
+        waitingTbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94A3B8;">Tidak ada antrean menunggu saat ini.</td></tr>`;
+      } else {
+        waitingTickets.forEach((item) => {
+          const tr = document.createElement('tr');
+          const isCalling = item.status === 'calling';
+          
+          tr.innerHTML = `
+            <td><strong class="code-badge">${item.code}</strong> ${isCalling ? '<small style="color:#0284C7;">(Dipanggil)</small>' : ''}</td>
+            <td>${item.nama}</td>
+            <td>${item.instansi}</td>
+            <td>${item.layanan}</td>
+            <td>${item.jam} WITA</td>
+            <td>
+              <button onclick="panggilTiket('${item.code}')" class="action-mini-btn">📢 Panggil</button>
+            </td>
+          `;
+          waitingTbody.appendChild(tr);
+        });
+      }
+
+      // 2. Render Tabel Riwayat Selesai
+      if (completedTickets.length === 0) {
+        historyTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94A3B8;">Belum ada riwayat antrean selesai.</td></tr>`;
+      } else {
+        completedTickets.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><strong>${item.code}</strong></td>
+            <td>${item.nama}</td>
+            <td>${item.instansi}</td>
+            <td>${item.layanan}</td>
+            <td><span class="status-done-badge">Selesai Dilayani</span></td>
+          `;
+          historyTbody.appendChild(tr);
+        });
+      }
+    }
+
+    // Fungsi Suara Panggil (Text-to-Speech)
     function playVoice(code) {
       if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Hentikan suara sebelumnya jika ada
-        
-        // Pemisahan kode agar dieja jelas (misal: A - 0 1 2)
+        window.speechSynthesis.cancel();
         const spelledCode = code.split('').join(' ');
         const text = `Nomor antrean, ${spelledCode}, silakan menuju ke loket pelayanan.`;
         
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'id-ID'; // Bahasa Indonesia
-        utterance.rate = 0.85;    // Kecepatan sedikit dibagusi biar jelas
-        utterance.pitch = 1.0;
-
+        utterance.lang = 'id-ID';
+        utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
       }
     }
 
-    // Panggil Tiket Spesifik Dari Tabel
-    function callSpecificTicket(index) {
-      currentTicket = waitingQueue[index];
-      
-      // Update UI Panel Utama
-      document.getElementById('activeTicketCode').innerText = currentTicket.code;
-      document.getElementById('activeTicketName').innerText = `${currentTicket.nama} - ${currentTicket.instansi}`;
-      document.getElementById('activeTicketService').innerText = currentTicket.layanan;
+    // Fungsi Panggil Tiket
+    function panggilTiket(code) {
+      let tickets = getTicketsFromStorage();
+      const ticket = tickets.find(t => t.code === code);
 
-      // Jalankan Suara
-      playVoice(currentTicket.code);
+      if (ticket) {
+        // Ubah status tiket jadi calling
+        ticket.status = 'calling';
+        saveTicketsToStorage(tickets);
 
-      // Pindahkan Ke Riwayat
-      const now = new Date();
-      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        activeTicket = ticket;
 
-      historyQueue.unshift({
-        waktu: timeStr,
-        code: currentTicket.code,
-        nama: currentTicket.nama,
-        instansi: currentTicket.instansi,
-        layanan: currentTicket.layanan,
-        status: "Dipanggil / Selesai"
-      });
+        // Update Layar Panggilan Admin
+        document.getElementById('activeTicketCode').innerText = ticket.code;
+        document.getElementById('activeTicketName').innerText = `${ticket.nama} - ${ticket.instansi}`;
+        document.getElementById('activeTicketService').innerText = ticket.layanan;
 
-      // Hapus dari antrean menunggu
-      waitingQueue.splice(index, 1);
-
-      // Refresh Tampilan Tabel
-      renderQueueTable();
-      renderHistoryTable();
+        // Jalankan Suara
+        playVoice(ticket.code);
+        refreshTables();
+      }
     }
 
     // Tombol Panggil Ulang
     function repeatVoiceCall() {
-      if (currentTicket) {
-        playVoice(currentTicket.code);
+      if (activeTicket) {
+        playVoice(activeTicket.code);
       } else {
-        alert("Belum ada antrean yang dipanggil!");
+        alert("Belum ada tiket yang sedang dipanggil!");
       }
     }
 
-    // Tombol Lanjut Tiket Berikutnya
-    function nextTicket() {
-      if (waitingQueue.length > 0) {
-        callSpecificTicket(0);
-      } else {
-        alert("Antrean sudah habis!");
-      }
-    }
-
-    // Render Tabel Riwayat (Untuk Pendataan)
-    function renderHistoryTable() {
-      const tbody = document.getElementById('historyQueueTableBody');
-      tbody.innerHTML = "";
-
-      if (historyQueue.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94A3B8;">Belum ada riwayat panggilan hari ini.</td></tr>`;
+    // Tombol Tandai Selesai
+    function markAsCompleted() {
+      if (!activeTicket) {
+        alert("Tidak ada antrean yang sedang aktif!");
         return;
       }
 
-      historyQueue.forEach(item => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-          <td>${item.waktu} WITA</td>
-          <td><strong>${item.code}</strong></td>
-          <td>${item.nama}</td>
-          <td>${item.instansi}</td>
-          <td>${item.layanan}</td>
-          <td><span class="status-done-badge">${item.status}</span></td>
-        `;
-        tbody.appendChild(tr);
-      });
+      let tickets = getTicketsFromStorage();
+      const ticket = tickets.find(t => t.code === activeTicket.code);
+
+      if (ticket) {
+        ticket.status = 'completed';
+        saveTicketsToStorage(tickets);
+
+        alert(`Antrean ${activeTicket.code} telah diselesaikan.`);
+        
+        activeTicket = null;
+        document.getElementById('activeTicketCode').innerText = "---";
+        document.getElementById('activeTicketName').innerText = "Belum ada tiket dipanggil";
+        document.getElementById('activeTicketService').innerText = "-";
+
+        refreshTables();
+      }
     }
 
-    // Export Riwayat Ke File CSV
+    // Tombol Panggil Antrean Berikutnya
+    function callNextInQueue() {
+      const tickets = getTicketsFromStorage();
+      const nextTicket = tickets.find(t => t.status === 'waiting');
+
+      if (nextTicket) {
+        panggilTiket(nextTicket.code);
+      } else {
+        alert("Tidak ada antrean menunggu berikutnya!");
+      }
+    }
+
+    // Export CSV
     function exportHistory() {
-      if (historyQueue.length === 0) {
-        alert("Tidak ada data riwayat untuk di-export!");
+      const tickets = getTicketsFromStorage().filter(t => t.status === 'completed');
+      if (tickets.length === 0) {
+        alert("Tidak ada data riwayat selesai untuk di-export!");
         return;
       }
 
-      let csvContent = "data:text/csv;charset=utf-8,Waktu,Kode Tiket,Nama,Instansi,Layanan,Status\n";
-      historyQueue.forEach(row => {
-        csvContent += `"${row.waktu}","${row.code}","${row.nama}","${row.instansi}","${row.layanan}","${row.status}"\n`;
+      let csvContent = "data:text/csv;charset=utf-8,Kode Tiket,Nama,Instansi,Layanan,Tanggal,Jam,Status\n";
+      tickets.forEach(row => {
+        csvContent += `"${row.code}","${row.nama}","${row.instansi}","${row.layanan}","${row.tanggal}","${row.jam}","Selesai"\n`;
       });
 
-      const encodedUri = encodeURI(csvContent);
       const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `Riwayat_Antrean_BMKG_${new Date().toISOString().slice(0,10)}.csv`);
+      link.setAttribute("href", encodeURI(csvContent));
+      link.setAttribute("download", `Riwayat_BMKG_${new Date().toISOString().slice(0,10)}.csv`);
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
     }
 
+    // Reset Semua Data
+    function clearAllData() {
+      if (confirm("Apakah Anda yakin ingin menghapus semua data antrean hari ini?")) {
+        localStorage.removeItem('bmkg_queue_tickets');
+        activeTicket = null;
+        document.getElementById('activeTicketCode').innerText = "---";
+        document.getElementById('activeTicketName').innerText = "Belum ada tiket dipanggil";
+        document.getElementById('activeTicketService').innerText = "-";
+        refreshTables();
+      }
+    }
+
     // Load data awal
-    renderQueueTable();
-    renderHistoryTable();
+    refreshTables();
   </script>
 </body>
 </html>
