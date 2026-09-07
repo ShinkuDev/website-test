@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Admin - Cek Tiket Antrean BMKG</title>
+  <title>Panel Admin Antrean - BMKG Banjarbaru</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,8 +20,8 @@
   <aside class="sidebar" id="sidebarMenu">
     <div class="sidebar-header">
       <div class="brand-text">
-        <h3>BMKG Banjarbaru</h3>
-        <span>Navigasi & Admin</span>
+        <h3 style="margin:0;">BMKG Banjarbaru</h3>
+        <span style="font-size:0.75rem; color:#64748B;">Navigasi & Admin</span>
       </div>
       <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
     </div>
@@ -36,7 +36,7 @@
       <div class="sidebar-divider"></div>
       <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
       <ul class="sidebar-links admin-links">
-        <li><a href="admin.html" class="admin-btn-link active">🔍 Cek & Verifikasi Tiket</a></li>
+        <li><a href="admin.html" class="admin-btn-link active">🔍 Dashboard Admin Antrean</a></li>
       </ul>
     </div>
   </aside>
@@ -53,10 +53,10 @@
     </div>
   </div>
 
-  <!-- Header -->
+  <!-- Header Admin -->
   <header class="main-header">
     <div class="header-container">
-      <button class="hamburger-btn" onclick="toggleSidebar()">
+      <button class="hamburger-btn" onclick="toggleSidebar()" type="button">
         <span></span>
         <span></span>
         <span></span>
@@ -66,125 +66,236 @@
         <div class="logo-badge">BMKG</div>
         <div class="brand-text">
           <h2>STASIUN KLIMATOLOGI</h2>
-          <span>PANEL ADMIN PETUGAS LOKET</span>
+          <span>DASHBOARD PETUGAS LOKET</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- Panel Cek Tiket Container -->
   <main class="admin-page-container">
-    <div class="breadcrumb">
-      <a href="index.html">Beranda</a> <span>›</span> 
-      <strong style="color: var(--text-primary);">Panel Verifikasi Tiket</strong>
+    <!-- Panel Panggilan Utama -->
+    <div class="card active-call-card">
+      <div class="call-status-label">ANTREAN DIPANGGIL SAAT INI</div>
+      <div class="active-ticket-number" id="activeTicketCode">A-012</div>
+      <div class="active-ticket-name" id="activeTicketName">Ahmad Rian - ULM Banjarbaru</div>
+      <div class="active-ticket-service" id="activeTicketService">Permohonan Data Klimatologi</div>
+
+      <div class="call-controls">
+        <button onclick="repeatVoiceCall()" class="control-btn btn-repeat">
+          🔊 Panggil Ulang (Suara)
+        </button>
+        <button onclick="nextTicket()" class="control-btn btn-next">
+          ⏭️ Lanjut Tiket Berikutnya
+        </button>
+      </div>
     </div>
 
-    <div class="admin-grid">
-      <!-- Input Pencarian Tiket -->
-      <div class="card admin-search-card">
-        <h2>🔍 Cek Kode Tiket Pemohon</h2>
-        <p class="subtitle">Masukkan Kode Tiket (Contoh: A-012, B-005) untuk memverifikasi kedatangan.</p>
-
-        <form onsubmit="checkTicket(event)" class="admin-search-form">
-          <input type="text" id="ticketSearchInput" placeholder="Ketik Kode Tiket (Contoh: A-012)" required>
-          <button type="submit" class="check-btn">Cari Tiket</button>
-        </form>
+    <!-- Tabel Daftar Antrean Menunggu -->
+    <div class="card admin-table-card">
+      <h3>📋 Daftar Antrean Menunggu Hari Ini</h3>
+      <div class="table-responsive">
+        <table class="queue-table">
+          <thead>
+            <tr>
+              <th>No. Tiket</th>
+              <th>Nama Pemohon</th>
+              <th>Instansi</th>
+              <th>Jenis Layanan</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="waitingQueueTableBody">
+            <!-- Data Antrean Otomatis Muncul di Sini -->
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <!-- Hasil Cek Tiket -->
-      <div class="card admin-result-card" id="adminResultCard" style="display: none;">
-        <div class="status-header valid" id="statusHeader">
-          <span>STATUS: TIKET VALID ✅</span>
-        </div>
-
-        <div class="admin-ticket-details">
-          <div class="detail-row">
-            <span>Kode Tiket:</span>
-            <strong id="adminResCode" class="highlight-code">A-012</strong>
-          </div>
-          <div class="detail-row">
-            <span>Nama Pemohon:</span>
-            <strong id="adminResNama">Ahmad Rian</strong>
-          </div>
-          <div class="detail-row">
-            <span>Instansi:</span>
-            <span id="adminResInstansi">Universitas Lambung Mangkurat</span>
-          </div>
-          <div class="detail-row">
-            <span>Jenis Layanan:</span>
-            <span id="adminResLayanan">Permohonan Data Klimatologi</span>
-          </div>
-          <div class="detail-row">
-            <span>No. WhatsApp:</span>
-            <span id="adminResKontak">081234567890</span>
-          </div>
-        </div>
-
-        <div class="admin-action-buttons">
-          <button onclick="callQueue()" class="action-btn call-btn">📢 Panggil Ke Loket</button>
-          <button onclick="markDone()" class="action-btn complete-btn">✔ Tandai Selesai</button>
-        </div>
+    <!-- Tabel Riwayat Panggilan (Untuk Pendataan Bulanan) -->
+    <div class="card admin-table-card" style="margin-top: 24px;">
+      <div class="table-header-flex">
+        <h3>📊 Riwayat Panggilan & Selesai (Pendataan Bulanan)</h3>
+        <button onclick="exportHistory()" class="export-btn">📥 Export Riwayat (.CSV)</button>
+      </div>
+      <div class="table-responsive">
+        <table class="queue-table history-table">
+          <thead>
+            <tr>
+              <th>Waktu Dipanggil</th>
+              <th>No. Tiket</th>
+              <th>Nama Pemohon</th>
+              <th>Instansi</th>
+              <th>Layanan</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="historyQueueTableBody">
+            <!-- Data Riwayat Muncul di Sini -->
+          </tbody>
+        </table>
       </div>
     </div>
   </main>
 
   <script>
-    // Fungsi Toggle Sidebar Garis 3
     function toggleSidebar() {
       document.getElementById('sidebarMenu').classList.toggle('active');
       document.getElementById('sidebarOverlay').classList.toggle('active');
     }
 
-    // Database Simulasi Tiket
-    const dummyDatabase = {
-      "A-012": { nama: "Ahmad Rian", instansi: "ULM Banjarbaru", layanan: "Permohonan Data Klimatologi", kontak: "081234567890" },
-      "B-005": { nama: "Siti Rahmah", instansi: "PT. Borneo Agro", layanan: "Kalibrasi Alat Meteorologi", kontak: "085299887766" },
-      "C-003": { nama: "M. Rajendra", instansi: "SMA Negeri", layanan: "Pengajuan Magang / Penelitian", kontak: "081900112233" }
-    };
+    // Data Antrean Sementara (Model Realtime)
+    let waitingQueue = [
+      { code: "A-012", nama: "Ahmad Rian", instansi: "ULM Banjarbaru", layanan: "Permohonan Data Klimatologi" },
+      { code: "A-013", nama: "Siti Rahmah", instansi: "PT. Borneo Agro", layanan: "Permohonan Data Klimatologi" },
+      { code: "B-004", nama: "M. Rajendra", instansi: "SMAN 1 Banjarbaru", layanan: "Kalibrasi Alat Meteorologi" },
+      { code: "C-002", nama: "Budi Santoso", instansi: "Dinas Pertanian", layanan: "Pengajuan Magang / Penelitian" }
+    ];
 
-    function checkTicket(e) {
-      e.preventDefault();
-      const code = document.getElementById('ticketSearchInput').value.trim().toUpperCase();
-      const resultCard = document.getElementById('adminResultCard');
-      
-      if (dummyDatabase[code]) {
-        const data = dummyDatabase[code];
-        document.getElementById('adminResCode').innerText = code;
-        document.getElementById('adminResNama').innerText = data.nama;
-        document.getElementById('adminResInstansi').innerText = data.instansi;
-        document.getElementById('adminResLayanan').innerText = data.layanan;
-        document.getElementById('adminResKontak').innerText = data.kontak;
+    let historyQueue = [];
+    let currentTicket = null;
+
+    // Render Tabel Antrean Menunggu
+    function renderQueueTable() {
+      const tbody = document.getElementById('waitingQueueTableBody');
+      tbody.innerHTML = "";
+
+      if (waitingQueue.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94A3B8;">Tidak ada antrean menunggu saat ini.</td></tr>`;
+        return;
+      }
+
+      waitingQueue.forEach((item, index) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><strong class="code-badge">${item.code}</strong></td>
+          <td>${item.nama}</td>
+          <td>${item.instansi}</td>
+          <td>${item.layanan}</td>
+          <td>
+            <button onclick="callSpecificTicket(${index})" class="action-mini-btn">📢 Panggil</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Fitur Suara Panggil Antrean (Text-To-Speech)
+    function playVoice(code) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Hentikan suara sebelumnya jika ada
         
-        resultCard.style.display = 'block';
-      } else {
-        alert("Kode Tiket tidak ditemukan atau belum terdaftar!");
-        resultCard.style.display = 'none';
+        // Pemisahan kode agar dieja jelas (misal: A - 0 1 2)
+        const spelledCode = code.split('').join(' ');
+        const text = `Nomor antrean, ${spelledCode}, silakan menuju ke loket pelayanan.`;
+        
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'id-ID'; // Bahasa Indonesia
+        utterance.rate = 0.85;    // Kecepatan sedikit dibagusi biar jelas
+        utterance.pitch = 1.0;
+
+        window.speechSynthesis.speak(utterance);
       }
     }
 
-    function callQueue() {
-      const code = document.getElementById('adminResCode').innerText;
-      alert(`Nomor antrean ${code} dipanggil ke Loket Pelayanan!`);
-    }
-
-    function markDone() {
-      alert("Layanan selesai disajikan. Status tiket diperbarui!");
-      document.getElementById('adminResultCard').style.display = 'none';
-      document.getElementById('ticketSearchInput').value = '';
-    }
-  </script>
-
-<!-- Tempatkan script ini tepat sebelum tag </body> -->
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebarMenu');
-      const overlay = document.getElementById('sidebarOverlay');
+    // Panggil Tiket Spesifik Dari Tabel
+    function callSpecificTicket(index) {
+      currentTicket = waitingQueue[index];
       
-      if (sidebar && overlay) {
-        sidebar.classList.toggle('active');
-        overlay.classList.toggle('active');
+      // Update UI Panel Utama
+      document.getElementById('activeTicketCode').innerText = currentTicket.code;
+      document.getElementById('activeTicketName').innerText = `${currentTicket.nama} - ${currentTicket.instansi}`;
+      document.getElementById('activeTicketService').innerText = currentTicket.layanan;
+
+      // Jalankan Suara
+      playVoice(currentTicket.code);
+
+      // Pindahkan Ke Riwayat
+      const now = new Date();
+      const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+      historyQueue.unshift({
+        waktu: timeStr,
+        code: currentTicket.code,
+        nama: currentTicket.nama,
+        instansi: currentTicket.instansi,
+        layanan: currentTicket.layanan,
+        status: "Dipanggil / Selesai"
+      });
+
+      // Hapus dari antrean menunggu
+      waitingQueue.splice(index, 1);
+
+      // Refresh Tampilan Tabel
+      renderQueueTable();
+      renderHistoryTable();
+    }
+
+    // Tombol Panggil Ulang
+    function repeatVoiceCall() {
+      if (currentTicket) {
+        playVoice(currentTicket.code);
+      } else {
+        alert("Belum ada antrean yang dipanggil!");
       }
     }
+
+    // Tombol Lanjut Tiket Berikutnya
+    function nextTicket() {
+      if (waitingQueue.length > 0) {
+        callSpecificTicket(0);
+      } else {
+        alert("Antrean sudah habis!");
+      }
+    }
+
+    // Render Tabel Riwayat (Untuk Pendataan)
+    function renderHistoryTable() {
+      const tbody = document.getElementById('historyQueueTableBody');
+      tbody.innerHTML = "";
+
+      if (historyQueue.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94A3B8;">Belum ada riwayat panggilan hari ini.</td></tr>`;
+        return;
+      }
+
+      historyQueue.forEach(item => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${item.waktu} WITA</td>
+          <td><strong>${item.code}</strong></td>
+          <td>${item.nama}</td>
+          <td>${item.instansi}</td>
+          <td>${item.layanan}</td>
+          <td><span class="status-done-badge">${item.status}</span></td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Export Riwayat Ke File CSV
+    function exportHistory() {
+      if (historyQueue.length === 0) {
+        alert("Tidak ada data riwayat untuk di-export!");
+        return;
+      }
+
+      let csvContent = "data:text/csv;charset=utf-8,Waktu,Kode Tiket,Nama,Instansi,Layanan,Status\n";
+      historyQueue.forEach(row => {
+        csvContent += `"${row.waktu}","${row.code}","${row.nama}","${row.instansi}","${row.layanan}","${row.status}"\n`;
+      });
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement("a");
+      link.setAttribute("href", encodedUri);
+      link.setAttribute("download", `Riwayat_Antrean_BMKG_${new Date().toISOString().slice(0,10)}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    // Load data awal
+    renderQueueTable();
+    renderHistoryTable();
   </script>
 </body>
 </html>
