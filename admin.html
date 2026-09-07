@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Admin - Cek Tiket Antrean BMKG</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <aside class="sidebar" id="sidebarMenu">
+    <div class="sidebar-header">
+      <div class="brand-text">
+        <h3>BMKG Banjarbaru</h3>
+        <span>Navigasi & Admin</span>
+      </div>
+      <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+    </div>
+    <div class="sidebar-body">
+      <ul class="sidebar-links">
+        <li><a href="index.html">🏠 Beranda</a></li>
+        <li><a href="cuaca.html">🌤️ Prakiraan Cuaca</a></li>
+        <li><a href="gempa.html">🌋 Gempa & Tsunami</a></li>
+        <li><a href="udara.html">🍃 Kualitas Udara</a></li>
+        <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
+      </ul>
+      <div class="sidebar-divider"></div>
+      <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
+      <ul class="sidebar-links admin-links">
+        <li><a href="admin.html" class="admin-btn-link active">🔍 Cek & Verifikasi Tiket</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <div class="top-info">
+        <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
+      </div>
+      <div class="top-actions">
+        <span style="font-size: 0.8rem; color: #64748B;">Mode Petugas Loket</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <button class="hamburger-btn" onclick="toggleSidebar()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <div class="brand">
+        <div class="logo-badge">BMKG</div>
+        <div class="brand-text">
+          <h2>STASIUN KLIMATOLOGI</h2>
+          <span>PANEL ADMIN PETUGAS LOKET</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Panel Cek Tiket Container -->
+  <main class="admin-page-container">
+    <div class="breadcrumb">
+      <a href="index.html">Beranda</a> <span>›</span> 
+      <strong style="color: var(--text-primary);">Panel Verifikasi Tiket</strong>
+    </div>
+
+    <div class="admin-grid">
+      <!-- Input Pencarian Tiket -->
+      <div class="card admin-search-card">
+        <h2>🔍 Cek Kode Tiket Pemohon</h2>
+        <p class="subtitle">Masukkan Kode Tiket (Contoh: A-012, B-005) untuk memverifikasi kedatangan.</p>
+
+        <form onsubmit="checkTicket(event)" class="admin-search-form">
+          <input type="text" id="ticketSearchInput" placeholder="Ketik Kode Tiket (Contoh: A-012)" required>
+          <button type="submit" class="check-btn">Cari Tiket</button>
+        </form>
+      </div>
+
+      <!-- Hasil Cek Tiket -->
+      <div class="card admin-result-card" id="adminResultCard" style="display: none;">
+        <div class="status-header valid" id="statusHeader">
+          <span>STATUS: TIKET VALID ✅</span>
+        </div>
+
+        <div class="admin-ticket-details">
+          <div class="detail-row">
+            <span>Kode Tiket:</span>
+            <strong id="adminResCode" class="highlight-code">A-012</strong>
+          </div>
+          <div class="detail-row">
+            <span>Nama Pemohon:</span>
+            <strong id="adminResNama">Ahmad Rian</strong>
+          </div>
+          <div class="detail-row">
+            <span>Instansi:</span>
+            <span id="adminResInstansi">Universitas Lambung Mangkurat</span>
+          </div>
+          <div class="detail-row">
+            <span>Jenis Layanan:</span>
+            <span id="adminResLayanan">Permohonan Data Klimatologi</span>
+          </div>
+          <div class="detail-row">
+            <span>No. WhatsApp:</span>
+            <span id="adminResKontak">081234567890</span>
+          </div>
+        </div>
+
+        <div class="admin-action-buttons">
+          <button onclick="callQueue()" class="action-btn call-btn">📢 Panggil Ke Loket</button>
+          <button onclick="markDone()" class="action-btn complete-btn">✔ Tandai Selesai</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fungsi Toggle Sidebar Garis 3
+    function toggleSidebar() {
+      document.getElementById('sidebarMenu').classList.toggle('active');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    }
+
+    // Database Simulasi Tiket
+    const dummyDatabase = {
+      "A-012": { nama: "Ahmad Rian", instansi: "ULM Banjarbaru", layanan: "Permohonan Data Klimatologi", kontak: "081234567890" },
+      "B-005": { nama: "Siti Rahmah", instansi: "PT. Borneo Agro", layanan: "Kalibrasi Alat Meteorologi", kontak: "085299887766" },
+      "C-003": { nama: "M. Rajendra", instansi: "SMA Negeri", layanan: "Pengajuan Magang / Penelitian", kontak: "081900112233" }
+    };
+
+    function checkTicket(e) {
+      e.preventDefault();
+      const code = document.getElementById('ticketSearchInput').value.trim().toUpperCase();
+      const resultCard = document.getElementById('adminResultCard');
+      
+      if (dummyDatabase[code]) {
+        const data = dummyDatabase[code];
+        document.getElementById('adminResCode').innerText = code;
+        document.getElementById('adminResNama').innerText = data.nama;
+        document.getElementById('adminResInstansi').innerText = data.instansi;
+        document.getElementById('adminResLayanan').innerText = data.layanan;
+        document.getElementById('adminResKontak').innerText = data.kontak;
+        
+        resultCard.style.display = 'block';
+      } else {
+        alert("Kode Tiket tidak ditemukan atau belum terdaftar!");
+        resultCard.style.display = 'none';
+      }
+    }
+
+    function callQueue() {
+      const code = document.getElementById('adminResCode').innerText;
+      alert(`Nomor antrean ${code} dipanggil ke Loket Pelayanan!`);
+    }
+
+    function markDone() {
+      alert("Layanan selesai disajikan. Status tiket diperbarui!");
+      document.getElementById('adminResultCard').style.display = 'none';
+      document.getElementById('ticketSearchInput').value = '';
+    }
+  </script>
+
+<!-- Tempatkan script ini tepat sebelum tag </body> -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+    }
+  </script>
+</body>
+</html>
