@@ -3,65 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel Admin Antrean - BMKG Banjarbaru</title>
-  
+  <title>Dashboard Admin Antrean - BMKG Banjarbaru</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
-  <!-- Sidebar Overlay -->
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-
-  <aside class="sidebar" id="sidebarMenu">
-    <div class="sidebar-header">
-      <div class="brand-text">
-        <h3 style="margin:0;">BMKG Banjarbaru</h3>
-        <span style="font-size:0.75rem; color:#64748B;">Navigasi & Admin</span>
-      </div>
-      <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
-    </div>
-    <div class="sidebar-body">
-      <ul class="sidebar-links">
-        <li><a href="index.html">🏠 Beranda</a></li>
-        <li><a href="cuaca.html">🌤️ Prakiraan Cuaca</a></li>
-        <li><a href="gempa.html">🌋 Gempa & Tsunami</a></li>
-        <li><a href="udara.html">🍃 Kualitas Udara</a></li>
-        <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
-      </ul>
-      <div class="sidebar-divider"></div>
-      <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
-      <ul class="sidebar-links admin-links">
-        <li><a href="admin.html" class="admin-btn-link active">🔍 Dashboard Admin Antrean</a></li>
-      </ul>
-    </div>
-  </aside>
-
-  <!-- Top Bar -->
-  <div class="top-bar">
-    <div class="top-bar-container">
-      <div class="top-info">
-        <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
-      </div>
-      <div class="top-actions">
-        <span style="font-size: 0.8rem; color: #64748B;">Mode Petugas Loket</span>
-      </div>
-    </div>
-  </div>
-
   <!-- Header Admin -->
   <header class="main-header">
     <div class="header-container">
-      <button class="hamburger-btn" onclick="toggleSidebar()" type="button">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
       <div class="brand">
         <div class="logo-badge">BMKG</div>
         <div class="brand-text">
@@ -69,268 +24,183 @@
           <span>DASHBOARD PETUGAS LOKET</span>
         </div>
       </div>
+      <div class="header-right">
+        <a href="index.html" class="cta-button" style="text-decoration: none; background: #64748b;">
+          <span>🏠 Kembali ke Beranda</span>
+        </a>
+      </div>
     </div>
   </header>
 
-  <main class="admin-page-container">
-    <!-- Panel Panggilan Utama -->
-    <div class="card active-call-card">
-      <div class="call-status-label">ANTREAN DIPANGGIL SAAT INI</div>
-      <div class="active-ticket-number" id="activeTicketCode">---</div>
-      <div class="active-ticket-name" id="activeTicketName">Belum ada tiket dipanggil</div>
-      <div class="active-ticket-service" id="activeTicketService">-</div>
+  <main class="ticket-page-container" style="max-width: 1100px; margin: 2rem auto; padding: 0 1rem;">
+    
+    <!-- Box Antrean Dipanggil -->
+    <div class="card" style="background: var(--primary-color, #0284c7); color: white; text-align: center; padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+      <small style="text-transform: uppercase; letter-spacing: 1px; opacity: 0.9;">Antrean Dipanggil Saat Ini</small>
+      <h1 id="adminCurrentCode" style="font-size: 3.5rem; margin: 0.5rem 0;">---</h1>
+      <p id="adminCurrentInfo" style="margin-bottom: 1.5rem; opacity: 0.9;">Belum ada tiket dipanggil</p>
 
-      <div class="call-controls">
-        <button onclick="repeatVoiceCall()" class="control-btn btn-repeat">
-          🔊 Panggil Ulang (Suara)
-        </button>
-        <button onclick="markAsCompleted()" class="control-btn btn-done" style="background: #22C55E; color: #fff;">
-          ✔ Selesai Dilayani
-        </button>
-        <button onclick="callNextInQueue()" class="control-btn btn-next" style="background: #EAB308; color: #fff;">
-          ⏭️ Panggil Berikutnya
-        </button>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+        <button onclick="panggilUlang()" class="cta-button" style="background: white; color: #0284c7;">🔊 Panggil Ulang</button>
+        <button onclick="selesaiLayanan()" class="cta-button" style="background: #22c55e;">✓ Selesai Dilayani</button>
+        <button onclick="panggilBerikutnya()" class="cta-button" style="background: #eab308;">⏩ Panggil Berikutnya</button>
       </div>
     </div>
 
-    <!-- Tabel Daftar Antrean Menunggu -->
-    <div class="card admin-table-card">
-      <div class="table-header-flex">
-        <h3>📋 Daftar Antrean Menunggu</h3>
-        <button onclick="clearAllData()" class="export-btn" style="color: #EF4444;">🗑️ Reset Semua Data</button>
+    <!-- Tabel Antrean Menunggu -->
+    <div class="card" style="margin-bottom: 2rem; padding: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h3 style="margin: 0;">📋 DAFTAR ANTREAN MENUNGGU</h3>
+        <button onclick="resetSemuaData()" style="background: #ef4444; color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer;">🗑️ Reset Semua Data</button>
       </div>
-      <div class="table-responsive">
-        <table class="queue-table">
+
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
           <thead>
-            <tr>
-              <th>No. Tiket</th>
-              <th>Nama Pemohon</th>
-              <th>Instansi</th>
-              <th>Jenis Layanan</th>
-              <th>Waktu Daftar</th>
-              <th>Aksi</th>
+            <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+              <th style="padding: 10px;">No. Tiket</th>
+              <th style="padding: 10px;">Nama Pemohon</th>
+              <th style="padding: 10px;">Instansi</th>
+              <th style="padding: 10px;">Jenis Layanan</th>
+              <th style="padding: 10px;">Waktu Daftar</th>
             </tr>
           </thead>
-          <tbody id="waitingQueueTableBody">
-            <!-- Data Antrean Menunggu -->
+          <tbody id="tableWaitingBody">
+            <!-- Render otomatis via JS -->
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Tabel Riwayat Panggilan (Selesai) -->
-    <div class="card admin-table-card" style="margin-top: 24px;">
-      <div class="table-header-flex">
-        <h3>📊 Riwayat Antrean Selesai (Pendataan Bulanan)</h3>
-        <button onclick="exportHistory()" class="export-btn">📥 Export CSV</button>
-      </div>
-      <div class="table-responsive">
-        <table class="queue-table history-table">
+    <!-- Tabel Riwayat Selesai -->
+    <div class="card" style="padding: 1.5rem;">
+      <h3 style="margin: 0 0 1rem 0;">📊 RIWAYAT ANTREAN SELESAI</h3>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left;">
           <thead>
-            <tr>
-              <th>No. Tiket</th>
-              <th>Nama Pemohon</th>
-              <th>Instansi</th>
-              <th>Layanan</th>
-              <th>Status</th>
+            <tr style="border-bottom: 2px solid #e2e8f0; background: #f8fafc;">
+              <th style="padding: 10px;">No. Tiket</th>
+              <th style="padding: 10px;">Nama Pemohon</th>
+              <th style="padding: 10px;">Instansi</th>
+              <th style="padding: 10px;">Layanan</th>
+              <th style="padding: 10px;">Status</th>
             </tr>
           </thead>
-          <tbody id="historyQueueTableBody">
-            <!-- Data Riwayat Selesai -->
+          <tbody id="tableDoneBody">
+            <!-- Render otomatis via JS -->
           </tbody>
         </table>
       </div>
     </div>
+
   </main>
 
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebarMenu').classList.toggle('active');
-      document.getElementById('sidebarOverlay').classList.toggle('active');
-    }
+    function loadAdminData() {
+      const tickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+      
+      const calling = tickets.find(t => t.status === 'calling');
+      const waiting = tickets.filter(t => t.status === 'waiting');
+      const done = tickets.filter(t => t.status === 'done');
 
-    let activeTicket = null;
+      // Update Box Utama
+      const codeEl = document.getElementById('adminCurrentCode');
+      const infoEl = document.getElementById('adminCurrentInfo');
 
-    // Ambil Data dari LocalStorage
-    function getTicketsFromStorage() {
-      return JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
-    }
-
-    // Simpan Kembali Data ke LocalStorage
-    function saveTicketsToStorage(tickets) {
-      localStorage.setItem('bmkg_queue_tickets', JSON.stringify(tickets));
-    }
-
-    // Refresh Semua Tampilan Tabel
-    function refreshTables() {
-      const tickets = getTicketsFromStorage();
-      const waitingTbody = document.getElementById('waitingQueueTableBody');
-      const historyTbody = document.getElementById('historyQueueTableBody');
-
-      waitingTbody.innerHTML = "";
-      historyTbody.innerHTML = "";
-
-      const waitingTickets = tickets.filter(t => t.status === 'waiting' || t.status === 'calling');
-      const completedTickets = tickets.filter(t => t.status === 'completed');
-
-      // 1. Render Tabel Menunggu
-      if (waitingTickets.length === 0) {
-        waitingTbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94A3B8;">Tidak ada antrean menunggu saat ini.</td></tr>`;
+      if (calling) {
+        codeEl.innerText = calling.code;
+        infoEl.innerText = `${calling.nama} (${calling.instansi}) - ${calling.layanan}`;
       } else {
-        waitingTickets.forEach((item) => {
-          const tr = document.createElement('tr');
-          const isCalling = item.status === 'calling';
-          
-          tr.innerHTML = `
-            <td><strong class="code-badge">${item.code}</strong> ${isCalling ? '<small style="color:#0284C7;">(Dipanggil)</small>' : ''}</td>
-            <td>${item.nama}</td>
-            <td>${item.instansi}</td>
-            <td>${item.layanan}</td>
-            <td>${item.jam} WITA</td>
-            <td>
-              <button onclick="panggilTiket('${item.code}')" class="action-mini-btn">📢 Panggil</button>
-            </td>
-          `;
-          waitingTbody.appendChild(tr);
-        });
+        codeEl.innerText = '---';
+        infoEl.innerText = 'Belum ada tiket dipanggil';
       }
 
-      // 2. Render Tabel Riwayat Selesai
-      if (completedTickets.length === 0) {
-        historyTbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:#94A3B8;">Belum ada riwayat antrean selesai.</td></tr>`;
+      // Render Tabel Menunggu
+      const waitingBody = document.getElementById('tableWaitingBody');
+      if (waiting.length === 0) {
+        waitingBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 15px; color: #64748b;">Tidak ada antrean menunggu saat ini.</td></tr>`;
       } else {
-        completedTickets.forEach(item => {
-          const tr = document.createElement('tr');
-          tr.innerHTML = `
-            <td><strong>${item.code}</strong></td>
-            <td>${item.nama}</td>
-            <td>${item.instansi}</td>
-            <td>${item.layanan}</td>
-            <td><span class="status-done-badge">Selesai Dilayani</span></td>
-          `;
-          historyTbody.appendChild(tr);
-        });
+        waitingBody.innerHTML = waiting.map(t => `
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px; font-weight: bold;">${t.code}</td>
+            <td style="padding: 10px;">${t.nama}</td>
+            <td style="padding: 10px;">${t.instansi}</td>
+            <td style="padding: 10px;">${t.layanan}</td>
+            <td style="padding: 10px;">${t.jam}</td>
+          </tr>
+        `).join('');
       }
-    }
 
-    // Fungsi Suara Panggil (Text-to-Speech)
-    function playVoice(code) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const spelledCode = code.split('').join(' ');
-        const text = `Nomor antrean, ${spelledCode}, silakan menuju ke loket pelayanan.`;
-        
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'id-ID';
-        utterance.rate = 0.85;
-        window.speechSynthesis.speak(utterance);
-      }
-    }
-
-    // Fungsi Panggil Tiket
-    function panggilTiket(code) {
-      let tickets = getTicketsFromStorage();
-      const ticket = tickets.find(t => t.code === code);
-
-      if (ticket) {
-        // Ubah status tiket jadi calling
-        ticket.status = 'calling';
-        saveTicketsToStorage(tickets);
-
-        activeTicket = ticket;
-
-        // Update Layar Panggilan Admin
-        document.getElementById('activeTicketCode').innerText = ticket.code;
-        document.getElementById('activeTicketName').innerText = `${ticket.nama} - ${ticket.instansi}`;
-        document.getElementById('activeTicketService').innerText = ticket.layanan;
-
-        // Jalankan Suara
-        playVoice(ticket.code);
-        refreshTables();
-      }
-    }
-
-    // Tombol Panggil Ulang
-    function repeatVoiceCall() {
-      if (activeTicket) {
-        playVoice(activeTicket.code);
+      // Render Tabel Selesai
+      const doneBody = document.getElementById('tableDoneBody');
+      if (done.length === 0) {
+        doneBody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 15px; color: #64748b;">Belum ada antrean selesai.</td></tr>`;
       } else {
-        alert("Belum ada tiket yang sedang dipanggil!");
+        doneBody.innerHTML = done.map(t => `
+          <tr style="border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 10px; font-weight: bold;">${t.code}</td>
+            <td style="padding: 10px;">${t.nama}</td>
+            <td style="padding: 10px;">${t.instansi}</td>
+            <td style="padding: 10px;">${t.layanan}</td>
+            <td style="padding: 10px;"><span style="background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 4px; font-size: 0.85rem;">Selesai</span></td>
+          </tr>
+        `).join('');
       }
     }
 
-    // Tombol Tandai Selesai
-    function markAsCompleted() {
-      if (!activeTicket) {
-        alert("Tidak ada antrean yang sedang aktif!");
-        return;
+    function panggilBerikutnya() {
+      let tickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+      
+      // Jika ada yang sedang dipanggil, tandai selesai dulu
+      const currentCallingIdx = tickets.findIndex(t => t.status === 'calling');
+      if (currentCallingIdx !== -1) {
+        tickets[currentCallingIdx].status = 'done';
       }
 
-      let tickets = getTicketsFromStorage();
-      const ticket = tickets.find(t => t.code === activeTicket.code);
-
-      if (ticket) {
-        ticket.status = 'completed';
-        saveTicketsToStorage(tickets);
-
-        alert(`Antrean ${activeTicket.code} telah diselesaikan.`);
-        
-        activeTicket = null;
-        document.getElementById('activeTicketCode').innerText = "---";
-        document.getElementById('activeTicketName').innerText = "Belum ada tiket dipanggil";
-        document.getElementById('activeTicketService').innerText = "-";
-
-        refreshTables();
-      }
-    }
-
-    // Tombol Panggil Antrean Berikutnya
-    function callNextInQueue() {
-      const tickets = getTicketsFromStorage();
-      const nextTicket = tickets.find(t => t.status === 'waiting');
-
-      if (nextTicket) {
-        panggilTiket(nextTicket.code);
+      // Cari antrean waiting pertama
+      const nextIdx = tickets.findIndex(t => t.status === 'waiting');
+      if (nextIdx !== -1) {
+        tickets[nextIdx].status = 'calling';
+        localStorage.setItem('bmkg_queue_tickets', JSON.stringify(tickets));
+        loadAdminData();
       } else {
-        alert("Tidak ada antrean menunggu berikutnya!");
+        alert('Tidak ada antrean yang menunggu!');
       }
     }
 
-    // Export CSV
-    function exportHistory() {
-      const tickets = getTicketsFromStorage().filter(t => t.status === 'completed');
-      if (tickets.length === 0) {
-        alert("Tidak ada data riwayat selesai untuk di-export!");
-        return;
+    function selesaiLayanan() {
+      let tickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+      const currentCallingIdx = tickets.findIndex(t => t.status === 'calling');
+      
+      if (currentCallingIdx !== -1) {
+        tickets[currentCallingIdx].status = 'done';
+        localStorage.setItem('bmkg_queue_tickets', JSON.stringify(tickets));
+        loadAdminData();
+      } else {
+        alert('Tidak ada tiket yang sedang dipanggil.');
       }
-
-      let csvContent = "data:text/csv;charset=utf-8,Kode Tiket,Nama,Instansi,Layanan,Tanggal,Jam,Status\n";
-      tickets.forEach(row => {
-        csvContent += `"${row.code}","${row.nama}","${row.instansi}","${row.layanan}","${row.tanggal}","${row.jam}","Selesai"\n`;
-      });
-
-      const link = document.createElement("a");
-      link.setAttribute("href", encodeURI(csvContent));
-      link.setAttribute("download", `Riwayat_BMKG_${new Date().toISOString().slice(0,10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     }
 
-    // Reset Semua Data
-    function clearAllData() {
-      if (confirm("Apakah Anda yakin ingin menghapus semua data antrean hari ini?")) {
+    function panggilUlang() {
+      const tickets = JSON.parse(localStorage.getItem('bmkg_queue_tickets')) || [];
+      const calling = tickets.find(t => t.status === 'calling');
+      if (calling) {
+        alert(`Memanggil ulang nomor antrean ${calling.code}`);
+      } else {
+        alert('Belum ada tiket yang dipanggil.');
+      }
+    }
+
+    function resetSemuaData() {
+      if (confirm('Apakah Anda yakin ingin menghapus seluruh data antrean?')) {
         localStorage.removeItem('bmkg_queue_tickets');
-        activeTicket = null;
-        document.getElementById('activeTicketCode').innerText = "---";
-        document.getElementById('activeTicketName').innerText = "Belum ada tiket dipanggil";
-        document.getElementById('activeTicketService').innerText = "-";
-        refreshTables();
+        loadAdminData();
       }
     }
 
-    // Load data awal
-    refreshTables();
+    // Jalankan dan sinkronkan secara realtime
+    window.addEventListener('DOMContentLoaded', loadAdminData);
+    window.addEventListener('storage', loadAdminData);
   </script>
 </body>
 </html>
