@@ -3,17 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ambil Tiket Antrean PTSP - BMKG Banjarbaru</title>
-  
+  <title>Sistem Tiket Antrean Online - BMKG Banjarbaru</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
+  <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-container">
       <div class="top-info">
@@ -26,8 +27,72 @@
     </div>
   </div>
 
+  <!-- Header Navigasi -->
   <header class="main-header">
     <div class="header-container">
+      <!-- Hamburger Menu & Sidebar Overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<aside class="sidebar" id="sidebarMenu">
+  <div class="sidebar-header">
+    <div class="brand-text">
+      <h3 style="font-size: 1.1rem; color: var(--text-primary);">BMKG Banjarbaru</h3>
+      <span style="font-size: 0.75rem; color: var(--text-secondary);">Navigasi & Admin</span>
+    </div>
+    <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+  </div>
+
+  <div class="sidebar-body">
+    <ul class="sidebar-links">
+      <li><a href="index.html">🏠 Beranda</a></li>
+      <li><a href="cuaca.html">🌤️ Prakiraan Cuaca</a></li>
+      <li><a href="gempa.html">🌋 Gempa & Tsunami</a></li>
+      <li><a href="udara.html">🍃 Kualitas Udara</a></li>
+      <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
+    </ul>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
+    <ul class="sidebar-links admin-links">
+      <li><a href="admin.html" class="admin-btn-link">🔍 Cek & Verifikasi Tiket</a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- Header Navigasi Utama -->
+<header class="main-header">
+  <div class="header-container">
+    
+    <!-- Tombol Garis 3 (Hamburger) di Kiri Atas -->
+    <button class="hamburger-btn" onclick="toggleSidebar()" aria-label="Buka Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="brand">
+      <div class="logo-badge">BMKG</div>
+      <div class="brand-text">
+        <h2>STASIUN KLIMATOLOGI</h2>
+        <span>BANJARBARU - KALIMANTAN SELATAN</span>
+      </div>
+    </div>
+
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item">Beranda</a>
+      <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+      <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
+      <a href="udara.html" class="nav-item">Kualitas Udara</a>
+    </nav>
+
+    <div class="header-right">
+      <a href="tiket.html" class="cta-button" style="text-decoration: none;">
+        <span>🎫 Ambil Tiket Antrean</span>
+      </a>
+    </div>
+  </div>
+</header> 
       <div class="brand">
         <div class="logo-badge">BMKG</div>
         <div class="brand-text">
@@ -35,68 +100,156 @@
           <span>BANJARBARU - KALIMANTAN SELATAN</span>
         </div>
       </div>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item">Beranda</a>
+        <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+        <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
+        <a href="udara.html" class="nav-item">Kualitas Udara</a>
+      </nav>
       <div class="header-right">
-        <a href="index.html" class="nav-item">← Kembali ke Beranda</a>
+        <a href="tiket.html" class="cta-button" style="text-decoration: none;">
+          <span>🎫 Ambil Tiket Antrean</span>
+        </a>
       </div>
     </div>
   </header>
 
-  <main class="ticket-landing-section">
-    <div class="ticket-container card">
-      <div class="section-header">
-        <span class="badge-ptsp">PTSP BMKG BANJARBARU</span>
-        <h2>Layanan Mandiri & Antrean Online</h2>
-        <p>Silakan isi formulir di bawah ini untuk mendapatkan tiket antrean pelayanan publik.</p>
-      </div>
+  <!-- Section Tiket Antrean -->
+  <main class="ticket-page-container">
+    <div class="breadcrumb">
+      <a href="index.html">Beranda</a> <span>›</span> 
+      <strong style="color: var(--text-primary);">Tiket Antrean Online</strong>
+    </div>
 
-      <div class="ticket-grid">
-        <form id="ticketForm" class="ticket-form" onsubmit="handleTicketSubmit(event)">
+    <!-- Status Antrean Realtime Hari Ini -->
+    <div class="queue-status-banner">
+      <div class="queue-status-box">
+        <small>Nomor Antrean Dipanggil</small>
+        <span class="queue-number current" id="currentQueue">A-012</span>
+      </div>
+      <div class="queue-status-divider"></div>
+      <div class="queue-status-box">
+        <small>Sisa Antrean Menunggu</small>
+        <span class="queue-number" id="waitingQueue">4 Orang</span>
+      </div>
+    </div>
+
+    <div class="ticket-grid">
+      <!-- Form Pengambilan Tiket -->
+      <div class="card ticket-form-card">
+        <h2>Ambil Tiket Antrean Pelayanan</h2>
+        <p class="subtitle">Silakan isi formulir di bawah untuk mendapatkan nomor antrean digital.</p>
+
+        <form id="ticketForm" onsubmit="generateTicket(event)">
           <div class="form-group">
-            <label for="userName">Nama Lengkap</label>
-            <input type="text" id="userName" required placeholder="Contoh: M. Rajendra">
+            <label for="nama">Nama Lengkap *</label>
+            <input type="text" id="nama" placeholder="Masukkan nama sesuai KTP" required>
           </div>
 
           <div class="form-group">
-            <label for="serviceType">Jenis Layanan</label>
-            <select id="serviceType" required>
-              <option value="">-- Pilih Jenis Layanan --</option>
-              <option value="Permohonan Data Cuaca/Klima">Permohonan Data Meteorologi / Klimatologi</option>
-              <option value="Kalibrasi Alat Meteorologi">Kalibrasi / Metrologi Alat</option>
-              <option value="Konsultasi & Rekomendasi">Konsultasi / Rekomendasi BMKG</option>
-              <option value="Layanan Akademik & Magang">Layanan Akademik & Penelitian</option>
+            <label for="instansi">Instansi / Universitas / Umum *</label>
+            <input type="text" id="instansi" placeholder="Contoh: ULM / PT. Sumber Makmur / Umum" required>
+          </div>
+
+          <div class="form-group">
+            <label for="layanan">Jenis Layanan Publik *</label>
+            <select id="layanan" required>
+              <option value="" disabled selected>-- Pilih Jenis Layanan --</option>
+              <option value="A">Permohonan Data Klimatologi & Cuaca</option>
+              <option value="B">Kalibrasi & Konsultasi Alat Meteorologi</option>
+              <option value="C">Pengajuan Magang / Penelitian</option>
+              <option value="D">Layanan Informasi / Pengaduan Umum</option>
             </select>
           </div>
 
           <div class="form-group">
-            <label for="userContact">Nomor WhatsApp / HP</label>
-            <input type="tel" id="userContact" required placeholder="08xxxxxxxxxx">
+            <label for="kontak">Nomor WhatsApp / HP *</label>
+            <input type="tel" id="kontak" placeholder="08xxxxxxxxxx" required>
           </div>
 
-          <button type="submit" class="cta-button btn-submit-ticket">
-            🎫 Cetak Tiket Antrean
+          <button type="submit" class="submit-ticket-btn">
+            🎟️ Cetak Tiket Antrean
           </button>
         </form>
+      </div>
 
-        <div id="ticketResult" class="ticket-result-box" style="display: none;">
-          <div class="ticket-pass">
-            <div class="ticket-pass-header">
-              <span class="badge-bmkg">BMKG STAKLIM BANJARBARU</span>
-              <small id="resTime">Diterbitkan: --:-- WITA</small>
+      <!-- Result Card Tiket (Muncul setelah Form di-submit) -->
+      <div class="card ticket-result-card" id="ticketResult" style="display: none;">
+        <div class="ticket-header">
+          <div class="logo-badge" style="margin: 0 auto 8px;">BMKG</div>
+          <h3>STASIUN KLIMATOLOGI BANJARBARU</h3>
+          <p>Tiket Antrean Digital Pelayanan Publik</p>
+        </div>
+
+        <div class="ticket-body">
+          <span class="ticket-label">NOMOR ANTREAN ANDA</span>
+          <div class="ticket-code" id="resCode">A-017</div>
+          
+          <div class="ticket-info-list">
+            <div class="info-row">
+              <span>Nama</span>
+              <strong id="resNama">-</strong>
             </div>
-            <p class="ticket-label">NOMOR ANTREAN ANDA</p>
-            <h1 id="resTicketNum">A-015</h1>
-            <h4 id="resService">Permohonan Data</h4>
-            <p id="resName" class="ticket-user-name">Nama Pemohon</p>
+            <div class="info-row">
+              <span>Layanan</span>
+              <strong id="resLayanan">-</strong>
+            </div>
+            <div class="info-row">
+              <span>Tanggal</span>
+              <strong id="resTanggal">-</strong>
+            </div>
           </div>
-          <p class="ticket-instruction">📌 Simpan bukti tiket ini dan tunjukkan kepada petugas loket PTSP.</p>
-          <div style="text-align: center; margin-top: 15px;">
-            <a href="index.html" class="nav-item">Selesai & Kembali ke Beranda</a>
-          </div>
+        </div>
+
+        <div class="ticket-footer">
+          <p>Simpan screenshot tiket ini atau tunjukkan ke petugas loket saat dipanggil.</p>
+          <button onclick="window.print()" class="print-btn">🖨️ Cetak / Simpan PDF</button>
         </div>
       </div>
     </div>
   </main>
 
-  <script src="js/tiket.js"></script>
+  <script>
+    function generateTicket(e) {
+      e.preventDefault();
+      
+      const nama = document.getElementById('nama').value;
+      const layananSelect = document.getElementById('layanan');
+      const kodeLayanan = layananSelect.value;
+      const namaLayanan = layananSelect.options[layananSelect.selectedIndex].text;
+      
+      // Simulasi Generasi Kode Antrean (contoh: A-017)
+      const randomNum = Math.floor(Math.random() * 10) + 13;
+      const ticketCode = `${kodeLayanan}-0${randomNum}`;
+      
+      // Tanggal hari ini
+      const today = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      const tanggalStr = today.toLocaleDateString('id-ID', options);
+
+      // Render ke Kartu Tiket
+      document.getElementById('resCode').innerText = ticketCode;
+      document.getElementById('resNama').innerText = nama;
+      document.getElementById('resLayanan').innerText = namaLayanan;
+      document.getElementById('resTanggal').innerText = tanggalStr;
+
+      // Tampilkan Hasil Tiket
+      document.getElementById('ticketResult').style.display = 'block';
+      document.getElementById('ticketResult').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+
+<!-- Tempatkan script ini tepat sebelum tag </body> -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+    }
+  </script>
 </body>
 </html>
