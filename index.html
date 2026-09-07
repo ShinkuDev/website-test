@@ -40,6 +40,73 @@
 
   <header class="main-header">
     <div class="header-container">
+<!-- Overlay Transparan Hitam Saat Sidebar Terbuka -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+<!-- Drawer Sidebar -->
+<aside class="sidebar" id="sidebarMenu">
+  <div class="sidebar-header">
+    <div class="brand-text">
+      <h3 style="font-size: 1.1rem; margin: 0; color: #0F172A;">BMKG Banjarbaru</h3>
+      <span style="font-size: 0.75rem; color: #64748B;">Navigasi & Admin</span>
+    </div>
+    <button class="close-sidebar-btn" onclick="toggleSidebar()">✕</button>
+  </div>
+
+  <div class="sidebar-body">
+    <ul class="sidebar-links">
+      <li><a href="index.html">🏠 Beranda</a></li>
+      <li><a href="cuaca.html">🌤️ Prakiraan Cuaca</a></li>
+      <li><a href="gempa.html">🌋 Gempa & Tsunami</a></li>
+      <li><a href="udara.html">🍃 Kualitas Udara</a></li>
+      <li><a href="tiket.html">🎫 Ambil Tiket Antrean</a></li>
+    </ul>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="admin-section-label">PANEL PETUGAS / ADMIN</div>
+    <ul class="sidebar-links admin-links">
+      <li><a href="admin.html" class="admin-btn-link">🔍 Cek & Verifikasi Tiket</a></li>
+    </ul>
+  </div>
+</aside>
+
+<!-- Header Navigasi -->
+<header class="main-header">
+  <div class="header-container">
+    
+    <!-- Tombol Garis 3 (Klik untuk Buka) -->
+    <button class="hamburger-btn" onclick="toggleSidebar()" type="button" aria-label="Buka Menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <div class="brand">
+      <div class="logo-badge">BMKG</div>
+      <div class="brand-text">
+        <h2>STASIUN KLIMATOLOGI</h2>
+        <span>BANJARBARU - KALIMANTAN SELATAN</span>
+      </div>
+    </div>
+    
+    <!-- Menu Navbar Desktop -->
+    <nav class="nav-menu">
+      <a href="index.html" class="nav-item">Beranda</a>
+      <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+      <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
+      <a href="udara.html" class="nav-item">Kualitas Udara</a>
+    </nav>
+  </div>
+</header>
+
+    <div class="header-right">
+      <a href="tiket.html" class="cta-button" style="text-decoration: none;">
+        <span>🎫 Ambil Tiket Antrean</span>
+      </a>
+    </div>
+  </div>
+</header>
       
       <div class="brand">
         <div class="logo-badge">BMKG</div>
@@ -48,6 +115,7 @@
           <span>BANJARBARU - KALIMANTAN SELATAN</span>
         </div>
       </div>
+      
 
 <nav class="nav-menu">
 <nav class="nav-menu">
@@ -262,5 +330,17 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/app.js"></script>
+  <!-- Tempatkan script ini tepat sebelum tag </body> -->
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebarMenu');
+      const overlay = document.getElementById('sidebarOverlay');
+      
+      if (sidebar && overlay) {
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
+    }
+  </script>
 </body>
 </html>
