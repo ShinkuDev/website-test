@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kualitas Udara (ISPU) - BMKG Banjarbaru</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <div class="top-info">
+        <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
+        <span>✉️ staklim.banjarbaru@bmkg.go.id</span>
+      </div>
+      <div class="top-actions">
+        <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigasi -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-badge">BMKG</div>
+        <div class="brand-text">
+          <h2>STASIUN KLIMATOLOGI</h2>
+          <span>BANJARBARU - KALIMANTAN SELATAN</span>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item">Beranda</a>
+        <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+        <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
+        <a href="udara.html" class="nav-item active">Kualitas Udara</a>
+      </nav>
+      <div class="header-right">
+        <a href="tiket.html" target="_blank" class="cta-button" style="text-decoration: none;">
+          <span>🎫 Ambil Tiket Antrean</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Kualitas Udara -->
+  <main class="ispu-page-container">
+    <div class="breadcrumb">
+      <a href="index.html">Beranda</a> <span>›</span> 
+      <strong style="color: var(--text-primary);">Kualitas Udara (ISPU)</strong>
+    </div>
+
+    <!-- Header Section -->
+    <div class="ispu-hero">
+      <span class="ispu-tag">STASIUN PEMANTAUAN BANJARBARU</span>
+      <h1>Indeks Standar Pencemar Udara (ISPU)</h1>
+      <p>Pemantauan konsentrasi Partikulat PM2.5 secara real-time di wilayah Banjarbaru dan Kalimantan Selatan</p>
+    </div>
+
+    <div class="ispu-grid">
+      <!-- Card Status ISPU Utama -->
+      <div class="card ispu-main-card">
+        <div class="ispu-header-row">
+          <div>
+            <h2>Kondisi Saat Ini</h2>
+            <small>Pembaruan Terakhir: 07 Sep 2026, 13:00 WITA</small>
+          </div>
+          <span class="ispu-status-pill status-good">BAIK</span>
+        </div>
+
+        <div class="ispu-score-container">
+          <div class="score-circle good-bg">
+            <span class="score-num">38</span>
+            <span class="score-unit">µg/m³ (PM2.5)</span>
+          </div>
+          <div class="score-info">
+            <h3>Tingkat Kualitas Udara Sangat Baik</h3>
+            <p>Kadar polutan udara tidak memberikan dampak negatif terhadap manusia, hewan, maupun tumbuhan. Aman untuk aktivitas di luar ruangan.</p>
+          </div>
+        </div>
+
+        <!-- Scale Legend -->
+        <div class="ispu-scale">
+          <h4>Kategori Indeks ISPU:</h4>
+          <div class="scale-bar">
+            <div class="scale-item item-good active-scale">0-50<br><small>Baik</small></div>
+            <div class="scale-item item-moderate">51-100<br><small>Sedang</small></div>
+            <div class="scale-item item-unhealthy">101-200<br><small>Tidak Sehat</small></div>
+            <div class="scale-item item-very-unhealthy">201-300<br><small>Sangat Tidak Sehat</small></div>
+            <div class="scale-item item-hazardous">301+<br><small>Berbahaya</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Parameter Polutan Lainnya -->
+      <div class="card ispu-parameters-card">
+        <h3>Konsentrasi Polutan Lainnya</h3>
+        <div class="param-list">
+          <div class="param-item">
+            <div class="param-name">PM10 <small>(Partikulat Pasir & Debu)</small></div>
+            <div class="param-val">24 µg/m³ <span class="badge-mini good">Baik</span></div>
+          </div>
+          <div class="param-item">
+            <div class="param-name">SO2 <small>(Sulfur Dioksida)</small></div>
+            <div class="param-val">12 µg/m³ <span class="badge-mini good">Baik</span></div>
+          </div>
+          <div class="param-item">
+            <div class="param-name">CO <small>(Karbon Monoksida)</small></div>
+            <div class="param-val">8 µg/m³ <span class="badge-mini good">Baik</span></div>
+          </div>
+          <div class="param-item">
+            <div class="param-name">O3 <small>(Ozon)</small></div>
+            <div class="param-val">32 µg/m³ <span class="badge-mini good">Baik</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

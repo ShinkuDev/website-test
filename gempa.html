@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informasi Gempa Bumi & Tsunami - BMKG</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <div class="top-info">
+        <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
+        <span>✉️ staklim.banjarbaru@bmkg.go.id</span>
+      </div>
+      <div class="top-actions">
+        <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigasi -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-badge">BMKG</div>
+        <div class="brand-text">
+          <h2>STASIUN KLIMATOLOGI</h2>
+          <span>BANJARBARU - KALIMANTAN SELATAN</span>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item">Beranda</a>
+        <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+        <a href="gempa.html" class="nav-item active">Gempa & Tsunami</a>
+        <a href="#" class="nav-item">Kualitas Udara</a>
+      </nav>
+      <div class="header-right">
+        <a href="tiket.html" target="_blank" class="cta-button" style="text-decoration: none;">
+          <span>🎫 Ambil Tiket Antrean</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Content Halaman Gempa -->
+  <main class="cuaca-page-container">
+    <div class="cuaca-hero-section">
+      <div class="breadcrumb">
+        <a href="index.html">Beranda</a> <span>›</span> 
+        <strong style="color: var(--text-primary);">Gempa Bumi & Tsunami</strong>
+      </div>
+
+      <h1 class="page-title">Informasi Gempa Bumi<br>& Peringatan Tsunami</h1>
+      <p class="page-subtitle">Data gempabumi terkini di Indonesia dan status potensi tsunami</p>
+    </div>
+
+    <!-- Layout Grid Utama Gempa -->
+    <div class="gempa-grid">
+      
+      <!-- Kartu Gempa Terkini (M >= 5.0) -->
+      <div class="card gempa-main-card">
+        <div class="gempa-header-tag">
+          <span class="badge-danger">GEMPA M 5.0+ TERKINI</span>
+          <span class="tsunami-status no-tsunami">Tidak Berpotensi Tsunami</span>
+        </div>
+
+        <div class="gempa-details-wrapper">
+          <div class="gempa-mag-box">
+            <span class="mag-num">5.2</span>
+            <small>Magnitudo</small>
+          </div>
+
+          <div class="gempa-info-list">
+            <div class="info-row">
+              <span class="label">Waktu Gempa</span>
+              <span class="val">07 Sep 2026 - 11:15:20 WIB</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Kedalaman</span>
+              <span class="val">10 Km</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Koordinat</span>
+              <span class="val">8.42 LS - 115.12 BT</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Pusat Gempa</span>
+              <span class="val">92 km BaratDaya KUTA-BALI</span>
+            </div>
+            <div class="info-row">
+              <span class="label">Dirasakan (MMI)</span>
+              <span class="val">III Kuta, III Denpasar, II Mataram</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Riwayat Gempa Dirasakan Lainnya -->
+      <div class="gempa-sidebar">
+        <h3 class="section-title">Daftar Gempa Dirasakan</h3>
+        
+        <div class="gempa-list">
+          <div class="card gempa-item">
+            <div class="item-mag">M 4.5</div>
+            <div class="item-desc">
+              <strong>Pusat Gempa: 24 km TimurLaut Luwu Timur</strong>
+              <small>Kedalaman: 5 km | 07 Sep 2026, 08:30 WIB</small>
+            </div>
+          </div>
+
+          <div class="card gempa-item">
+            <div class="item-mag">M 3.8</div>
+            <div class="item-desc">
+              <strong>Pusat Gempa: 12 km BaratDaya Cianjur</strong>
+              <small>Kedalaman: 10 km | 06 Sep 2026, 22:10 WIB</small>
+            </div>
+          </div>
+
+          <div class="card gempa-item">
+            <div class="item-mag">M 4.9</div>
+            <div class="item-desc">
+              <strong>Pusat Gempa: 45 km Selatan Melonguane</strong>
+              <small>Kedalaman: 22 km | 06 Sep 2026, 15:45 WIB</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+</body>
+</html>

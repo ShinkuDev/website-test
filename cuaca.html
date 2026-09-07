@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prakiraan Cuaca Provinsi Kalimantan Selatan - BMKG</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div class="top-bar-container">
+      <div class="top-info">
+        <span>📍 Jl. Trikora, Loktabat Sel., Kec. Banjarbaru, Kalimantan Selatan</span>
+        <span>✉️ staklim.banjarbaru@bmkg.go.id</span>
+      </div>
+      <div class="top-actions">
+        <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigasi -->
+  <header class="main-header">
+    <div class="header-container">
+      <div class="brand">
+        <div class="logo-badge">BMKG</div>
+        <div class="brand-text">
+          <h2>STASIUN KLIMATOLOGI</h2>
+          <span>BANJARBARU - KALIMANTAN SELATAN</span>
+        </div>
+      </div>
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-item">Beranda</a>
+        <a href="cuaca.html" class="nav-item active">Prakiraan Cuaca</a>
+        <a href="#" class="nav-item">Gempa & Tsunami</a>
+        <a href="#" class="nav-item">Kualitas Udara</a>
+      </nav>
+      <div class="header-right">
+        <a href="tiket.html" target="_blank" class="cta-button" style="text-decoration: none;">
+          <span>🎫 Ambil Tiket Antrean</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Section Hero Pencarian Cuaca (Persis Tampilan Web Resmi BMKG) -->
+  <main class="cuaca-page-container">
+    <div class="cuaca-hero-section">
+      <div class="breadcrumb">
+        <a href="index.html">Beranda</a> <span>›</span> 
+        <a href="cuaca.html">Cuaca</a> <span>›</span> 
+        <strong style="color: var(--text-primary);">Kalimantan Selatan</strong>
+      </div>
+
+      <h1 class="page-title">Prakiraan Cuaca Provinsi<br>Kalimantan Selatan</h1>
+      <p class="page-subtitle">Prakiraan cuaca kabupaten dan kota di Provinsi Kalimantan Selatan</p>
+
+      <!-- Input Pencarian Kelurahan/Kecamatan -->
+      <div class="search-box-wrapper">
+        <div class="search-input-group">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchLocation" placeholder="Cari kelurahan/desa..." onkeyup="filterWeather(this.value)">
+        </div>
+      </div>
+    </div>
+
+    <!-- Grid Hasil Kartu Cuaca Wilayah Kalsel -->
+    <div class="weather-region-grid" id="regionGrid">
+      <div class="card region-card">
+        <div class="region-info">
+          <h3>Banjarbaru</h3>
+          <p>Kec. Banjarbaru Selatan</p>
+        </div>
+        <div class="region-weather">
+          <span class="weather-icon">🌧️</span>
+          <span class="region-temp">30°C</span>
+        </div>
+        <small class="weather-desc">Hujan Ringan</small>
+      </div>
+
+      <div class="card region-card">
+        <div class="region-info">
+          <h3>Banjarmasin</h3>
+          <p>Kec. Banjarmasin Tengah</p>
+        </div>
+        <div class="region-weather">
+          <span class="weather-icon">⛅</span>
+          <span class="region-temp">31°C</span>
+        </div>
+        <small class="weather-desc">Berawan</small>
+      </div>
+
+      <div class="card region-card">
+        <div class="region-info">
+          <h3>Martapura</h3>
+          <p>Kab. Banjar</p>
+        </div>
+        <div class="region-weather">
+          <span class="weather-icon">🌩️</span>
+          <span class="region-temp">29°C</span>
+        </div>
+        <small class="weather-desc">Hujan Petir</small>
+      </div>
+
+      <div class="card region-card">
+        <div class="region-info">
+          <h3>Pelaihari</h3>
+          <p>Kab. Tanah Laut</p>
+        </div>
+        <div class="region-weather">
+          <span class="weather-icon">☀️</span>
+          <span class="region-temp">32°C</span>
+        </div>
+        <small class="weather-desc">Cerah</small>
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>
