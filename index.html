@@ -10,8 +10,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   
-  <link rel="stylesheet" href="css/css_style.css">
-  <link rel="stylesheet" href="css/css_responsive.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
 
@@ -24,17 +24,15 @@
 <div class="top-actions">
   <div class="social-links">
     <a href="#" title="Instagram">
-      <img src="images (1).jpeg" alt="Instagram" class="social-icon">
+      <img src="assets/images (1).jpeg" alt="Instagram" class="social-icon">
     </a>
     <a href="#" title="Twitter / X">
-      <img src="images.png" class="social-icon">
+      <img src="assets/images.png" class="social-icon">
     </a>
     <a href="#" title="YouTube">
-      <img src="images (1).png" alt="YouTube" class="social-icon">
+      <img src="assets/images (1).png" alt="YouTube" class="social-icon">
     </a>
   </div>
-  <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
-</div>
         <a href="tel:196" class="emergency-btn">🚨 Call Center 196</a>
       </div>
     </div>
@@ -51,20 +49,24 @@
         </div>
       </div>
 
-      <nav class="nav-menu">
-        <a href="index.html" class="nav-item active">Beranda</a>
-        <a href="#" class="nav-item">Prakiraan Cuaca</a>
-        <a href="#" class="nav-item">Gempa & Tsunami</a>
-        <a href="#" class="nav-item">Kualitas Udara</a>
-        <div class="nav-dropdown">
-          <button class="dropdown-btn">Layanan Publik ▾</button>
-          <div class="dropdown-content">
-            <a href="tiket.html" target="_blank">Permohonan Data Klima</a>
-            <a href="tiket.html" target="_blank">Kalibrasi Alat</a>
-            <a href="tiket.html" target="_blank">Magang & Penelitian</a>
-          </div>
-        </div>
-      </nav>
+<nav class="nav-menu">
+<nav class="nav-menu">
+  <a href="index.html" class="nav-item">Beranda</a>
+  <a href="cuaca.html" class="nav-item">Prakiraan Cuaca</a>
+  <a href="gempa.html" class="nav-item">Gempa & Tsunami</a>
+  <a href="udara.html" class="nav-item">Kualitas Udara</a>
+</nav>
+</nav>
+  
+  <div class="nav-dropdown">
+    <button class="dropdown-btn">Layanan Publik ▾</button>
+    <div class="dropdown-content">
+      <a href="tiket.html" target="_blank">Permohonan Data Klima</a>
+      <a href="tiket.html" target="_blank">Kalibrasi Alat</a>
+      <a href="tiket.html" target="_blank">Magang & Penelitian</a>
+    </div>
+  </div>
+</nav>
 
       <div class="header-right">
         <div class="time-widget">
@@ -81,6 +83,81 @@
   <main class="dashboard-grid">
     
     <section class="main-content">
+      <!-- Kartu Prakiraan Cuaca Per Jam & Harian -->
+<div class="card forecast-card">
+  <div class="forecast-tabs">
+    <button class="tab-btn active" onclick="switchForecast('hourly')">Per 3 Jam</button>
+    <button class="tab-btn" onclick="switchForecast('daily')">5 Hari Kedepan</button>
+  </div>
+
+  <!-- Container Cuaca Per Jam -->
+  <div id="hourly-forecast" class="forecast-container active">
+    <div class="forecast-item">
+      <span class="time">14:00</span>
+      <span class="icon">🌧️</span>
+      <span class="temp">30°C</span>
+      <small>Hujan Ringan</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">17:00</span>
+      <span class="icon">⛅</span>
+      <span class="temp">28°C</span>
+      <small>Berawan</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">20:00</span>
+      <span class="icon">☁️</span>
+      <span class="temp">26°C</span>
+      <small>Berawan Tebal</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">23:00</span>
+      <span class="icon">🌙</span>
+      <span class="temp">25°C</span>
+      <small>Cerah Berawan</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">02:00</span>
+      <span class="icon">🌙</span>
+      <span class="temp">24°C</span>
+      <small>Cerah Berawan</small>
+    </div>
+  </div>
+
+  <!-- Container Cuaca Harian (Disembunyikan default) -->
+  <div id="daily-forecast" class="forecast-container" style="display: none;">
+    <div class="forecast-item">
+      <span class="time">Hari Ini</span>
+      <span class="icon">🌧️</span>
+      <span class="temp">31°C / 24°C</span>
+      <small>Hujan Ringan</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">Besok</span>
+      <span class="icon">⛅</span>
+      <span class="temp">32°C / 24°C</span>
+      <small>Cerah Berawan</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">Rabu</span>
+      <span class="icon">☀️</span>
+      <span class="temp">33°C / 25°C</span>
+      <small>Cerah</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">Kamis</span>
+      <span class="icon">🌩️</span>
+      <span class="temp">29°C / 23°C</span>
+      <small>Hujan Petir</small>
+    </div>
+    <div class="forecast-item">
+      <span class="time">Jumat</span>
+      <span class="icon">☁️</span>
+      <span class="temp">30°C / 24°C</span>
+      <small>Berawan</small>
+    </div>
+  </div>
+</div>
       
       <div class="card hero-weather">
         <div class="weather-header">
@@ -151,6 +228,37 @@
     </aside>
 
   </main>
+
+  <!-- Tambahkan id="prakiraan-cuaca" pada div ini -->
+<div id="prakiraan-cuaca" class="card hero-weather">
+  <div class="weather-header">
+    <div>
+      <h2 id="location-name">Banjarbaru, Kalimantan Selatan</h2>
+      <p class="subtitle">Prakiraan Cuaca Hari Ini</p>
+    </div>
+    <div class="weather-status-badge">Berawan</div>
+  </div>
+  
+  <div class="weather-body">
+    <div class="temp-display">
+      <span id="temperature">31</span><span class="unit">°C</span>
+    </div>
+    <div class="weather-details">
+      <div class="detail-item">
+        <span>Kelembapan</span>
+        <strong id="humidity">78%</strong>
+      </div>
+      <div class="detail-item">
+        <span>Kecepatan Angin</span>
+        <strong id="wind-speed">10 km/jam</strong>
+      </div>
+      <div class="detail-item">
+        <span>Arah Angin</span>
+        <strong id="wind-dir">Tenggara</strong>
+      </div>
+    </div>
+  </div>
+</div>
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/app.js"></script>
